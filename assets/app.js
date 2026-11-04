@@ -117,3 +117,26 @@ document.addEventListener('DOMContentLoaded', ()=>{
   if(document.getElementById('p-result')) calcPaver();
   if(document.getElementById('d-result')) calcDrip();
 });
+
+function calcRain(){
+  const roof=num('rw-roof',1000), rain=num('rw-rain',1);
+  const gal=roof*rain*0.623;
+  out('rw-result', `<strong>About ${fmt(gal)} gallons</strong> from a ${fmt(roof,0)} sq ft roof in ${rain} inch of rain. A standard 55-gallon barrel fills many times over in a good storm — use multiple barrels or a larger tank if you want to store it.`);
+}
+function calcConcrete(){
+  const len=num('cc-len',10), wid=num('cc-wid',4), dep=num('cc-dep',4);
+  const cf=len*wid*dep/12, cy=cf/27, bags=Math.ceil(cf/0.6);
+  out('cc-result', `<strong>About ${fmt(cf)} cubic feet (${fmt(cy)} cubic yards)</strong>, or about <strong>${fmt(bags,0)} × 80 lb bags</strong> at roughly 0.6 cu ft per bag — check your bag label, as yields vary by mix.`);
+}
+function calcLShape(){
+  const l1=num('ls-l1',8), w1=num('ls-w1',4), l2=num('ls-l2',4), w2=num('ls-w2',4), dep=num('ls-dep',12);
+  const cf=(l1*w1+l2*w2)*dep/12, cy=cf/27;
+  out('ls-result', `<strong>About ${fmt(cf)} cubic feet (${fmt(cy)} cubic yards)</strong> for an L-shaped bed: ${l1}×${w1} ft main section plus ${l2}×${w2} ft wing, at ${dep} in deep. Measure the wing as the part that sticks out beyond the main rectangle, not the full length including overlap.`);
+}
+document.addEventListener('DOMContentLoaded', ()=>{
+  const bind=(btn, fn)=>{ const el=document.getElementById(btn); if(el) el.addEventListener('click', fn); };
+  bind('rw-calc', calcRain); bind('cc-calc', calcConcrete); bind('ls-calc', calcLShape);
+  if(document.getElementById('rw-result')) calcRain();
+  if(document.getElementById('cc-result')) calcConcrete();
+  if(document.getElementById('ls-result')) calcLShape();
+});
