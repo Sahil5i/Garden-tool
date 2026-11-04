@@ -48,6 +48,7 @@ function buildPlantCalculator(root, opts={}){
     </div>
     <div>
       <div class="field"><label>Search mutations</label><input id="${prefix}-mutsearch" type="search" placeholder="e.g. Shocked…"></div>
+      <label style="display:flex;gap:.5rem;align-items:center;min-height:44px;cursor:pointer"><input type="checkbox" id="${prefix}-hideadmin"> Hide admin mutations</label>
       <div class="mut-list" id="${prefix}-mutlist"></div>
       <div id="${prefix}-warn"></div>
     </div>
@@ -59,8 +60,11 @@ function buildPlantCalculator(root, opts={}){
   let saved=[]; try{saved=JSON.parse(localStorage.getItem('gcp_trade_list_v2')||'[]')}catch(e){saved=[]}
   function renderMutations(){
     const q=norm(mutSearch.value);
+    const wasChecked=new Set([...root.querySelectorAll('.'+prefix+'-mut:checked')].map(i=>i.value));
+    const hideAdmin=$('#'+prefix+'-hideadmin',root) && $('#'+prefix+'-hideadmin',root).checked;
+    const adminSet=new Set((DATA.mutations||[]).filter(m=>m.admin).map(m=>norm(m.name)));
     const keys=Object.keys(DATA.formulaMutations).sort((a,b)=>DATA.formulaMutations[b]-DATA.formulaMutations[a]);
-    mutList.innerHTML=keys.filter(k=>!q||k.includes(q)).map(k=>`<label><input type="checkbox" value="${k}" class="${prefix}-mut"> <span><strong>${k}</strong> <span class="mut-x">×${DATA.formulaMutations[k]}</span></span></label>`).join('');
+    mutList.innerHTML=keys.filter(k=>(!q||k.includes(q)) && !(hideAdmin && adminSet.has(k))).map(k=>`<label><input type="checkbox" value="${k}" class="${prefix}-mut" ${wasChecked.has(k)?'checked':''}> <span><strong>${k}</strong> <span class="mut-x">×${DATA.formulaMutations[k]}</span>${adminSet.has(k)?' <span class="small muted">Admin</span>':''}</span></label>`).join('');
     mutList.querySelectorAll('input').forEach(i=>i.addEventListener('change',calc));
   }
   function refreshPlants(){
@@ -109,6 +113,7 @@ function buildPlantCalculator(root, opts={}){
   plantSel.addEventListener('change',()=>{weightEl.value=DATA.baseWeights[plantSel.value]||1; calc();});
   ['weight','tier','amount','friends','target'].forEach(id=>{const el=$('#'+prefix+'-'+id,root); if(el) el.addEventListener('input',calc);});
   mutSearch.addEventListener('input',renderMutations);
+  const hideEl=$('#'+prefix+'-hideadmin',root); if(hideEl) hideEl.addEventListener('change',renderMutations);
   renderMutations(); refreshPlants(); renderList();
   return {getTotal:()=>saved.reduce((a,s)=>a+s.value,0)};
 }
@@ -119,6 +124,7 @@ function buildPetCalculator(root){
     <div class="field"><label>Base hatch time (seconds)</label><input id="pet-hatch" type="number" value="300"></div>
     <div class="field"><label>Hatch speed bonus (%)</label><input id="pet-bonus" type="number" value="25" min="0" max="99"></div>
     <div class="field"><label>Target level</label><input id="pet-level" type="number" value="10" min="2" max="999"></div>
+    <div class="field"><label>Your XP per second (optional, for time estimate)</label><input id="pet-xps" type="number" value="0.52" step="0.01" min="0"></div>
   </div>
   <div class="big-value" id="pet-result"></div><div id="pet-breakdown" class="small muted"></div>`;
   function calc(){
@@ -126,8 +132,11 @@ function buildPetCalculator(root){
     const eff = w<=100 ? w : 100+(w-100)/4;
     const hatch = base*(100-bonus)/100;
     const xp = 125*lvl*(lvl-1);
+    const xps = parseFloat($('#pet-xps',root).value)||0;
+    let timeTxt = '';
+    if(xps>0){ const secs=xp/xps; const h=Math.floor(secs/3600), m=Math.floor((secs%3600)/60); timeTxt=` · Time at ${xps} XP/s: about ${h}h ${m}m`; }
     $('#pet-result',root).textContent=`Effective weight ${eff.toFixed(2)} kg`;
-    $('#pet-breakdown',root).innerHTML=`Displayed ${w} kg · Past 100 kg only one-quarter of extra mass counts · Hatch time ${hatch.toFixed(1)}s (bonus ${bonus}%, capped at 99%) · Cumulative XP to level ${lvl}: ${xp.toLocaleString('en-US')}`;
+    $('#pet-breakdown',root).innerHTML=`Displayed ${w} kg · Past 100 kg only one-quarter of extra mass counts · Hatch time ${hatch.toFixed(1)}s (bonus ${bonus}%, capped at 99%) · Cumulative XP to level ${lvl}: ${xp.toLocaleString('en-US')}${timeTxt}`;
   }
   root.querySelectorAll('input').forEach(i=>i.addEventListener('input',calc)); calc();
 }
