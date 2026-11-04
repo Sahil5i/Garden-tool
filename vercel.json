@@ -101,6 +101,51 @@
       "source": "/changelog/:path*",
       "destination": "/",
       "permanent": true
+    },
+    {
+      "source": "/plants/",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/pets/",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/mutations/",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/trade-values/",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/wiki/",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/help/",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/faq/",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/changelog/",
+      "destination": "/",
+      "permanent": true
     }
   ],
   "headers": [
