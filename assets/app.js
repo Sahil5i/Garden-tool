@@ -81,3 +81,39 @@ document.addEventListener('DOMContentLoaded', ()=>{
   if(document.getElementById('c-result')) calcCost();
   if(document.getElementById('r-result')) calcRow();
 });
+
+function calcLawn(){
+  const area=num('l-area',1000), rate=num('l-rate',5);
+  const lb=area/1000*rate;
+  out('l-result', `<strong>About ${fmt(lb,1)} lb of seed</strong> for ${fmt(area,0)} sq ft at ${rate} lb per 1,000 sq ft. For overseeding an existing lawn, use a lower rate (often half the new-lawn rate) — check the seed bag.`);
+}
+function calcGravel(){
+  const len=num('g-len',10), wid=num('g-wid',4), dep=num('g-dep',3);
+  const cf=len*wid*dep/12, cy=cf/27;
+  out('g-result', `<strong>About ${fmt(cf)} cubic feet (${fmt(cy)} cubic yards)</strong> for a ${len} × ${wid} ft area at ${dep} in deep. Ask your supplier for the weight in tons, as it varies by stone type — volume is the reliable number to order by.`);
+}
+function calcMix(){
+  const vol=num('m-vol',32), top=num('m-top',60), comp=num('m-comp',30), aer=num('m-aer',10);
+  const sum=top+comp+aer;
+  const note = sum===100 ? '' : ` <em>Note: your percentages add to ${sum}%, not 100% — adjust them so they total 100%.</em>`;
+  out('m-result', `<strong>Topsoil ${fmt(vol*top/100)} cu ft · Compost ${fmt(vol*comp/100)} cu ft · Aeration ${fmt(vol*aer/100)} cu ft</strong> for ${vol} cu ft total.${note}`);
+}
+function calcPaver(){
+  const area=num('p-area',100), ps=num('p-size',12);
+  const paverSq=(ps/12)*(ps/12), count=Math.ceil(area/paverSq), waste=Math.ceil(count*1.10);
+  out('p-result', `<strong>About ${fmt(count,0)} pavers</strong> for ${fmt(area,0)} sq ft at ${ps} in square pavers, or <strong>${fmt(waste,0)} with 10% waste</strong> for cuts and breakage.`);
+}
+function calcDrip(){
+  const em=num('d-em',20), flow=num('d-flow',1), hrs=num('d-hrs',2);
+  const gal=em*flow*hrs;
+  out('d-result', `<strong>About ${fmt(gal)} gallons per week</strong> (${em} emitters × ${flow} gal/hr × ${hrs} hrs). Check soil moisture before increasing hours — drip systems deliver water slowly, so a long run can overwater clay soil.`);
+}
+document.addEventListener('DOMContentLoaded', ()=>{
+  const bind=(btn, fn)=>{ const el=document.getElementById(btn); if(el) el.addEventListener('click', fn); };
+  bind('l-calc', calcLawn); bind('g-calc', calcGravel); bind('m-calc', calcMix); bind('p-calc', calcPaver); bind('d-calc', calcDrip);
+  if(document.getElementById('l-result')) calcLawn();
+  if(document.getElementById('g-result')) calcGravel();
+  if(document.getElementById('m-result')) calcMix();
+  if(document.getElementById('p-result')) calcPaver();
+  if(document.getElementById('d-result')) calcDrip();
+});
