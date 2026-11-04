@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img"><rect width="1200" height="630" fill="#f5f5f7"/>
+<circle cx="1020" cy="110" r="70" fill="#facc15"/><circle cx="1020" cy="110" r="110" fill="#facc15" opacity="0.25"/>
+<rect x="80" y="380" width="1040" height="120" rx="20" fill="#92400e"/><rect x="80" y="360" width="1040" height="30" fill="#78350f"/>
+<g fill="#16a34a"><ellipse cx="200" cy="340" rx="60" ry="40"/><ellipse cx="400" cy="330" rx="70" ry="50"/><ellipse cx="620" cy="340" rx="60" ry="40"/><ellipse cx="840" cy="330" rx="70" ry="50"/><ellipse cx="1040" cy="340" rx="50" ry="35"/></g>
+<g stroke="#16a34a" stroke-width="6" stroke-linecap="round"><line x1="200" y1="340" x2="200" y2="260"/><line x1="400" y1="330" x2="400" y2="240"/><line x1="620" y1="340" x2="620" y2="260"/><line x1="840" y1="330" x2="840" y2="240"/><line x1="1040" y1="340" x2="1040" y2="270"/></g>
+<text x="70" y="120" font-family="Arial, sans-serif" font-size="42" font-weight="700" fill="#16a34a">GARDEN CALCULATOR PRO</text>
+<text x="70" y="190" font-family="Arial, sans-serif" font-size="54" font-weight="800" fill="#1d1d1f">Real garden calculators,</text>
+<text x="70" y="250" font-family="Arial, sans-serif" font-size="54" font-weight="800" fill="#1d1d1f">made simple.</text>
+</svg>
