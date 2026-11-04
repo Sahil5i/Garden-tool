@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-label="Terms of Service">
+  <rect width="1200" height="630" fill="#14532d"/>
+  <circle cx="1020" cy="110" r="180" fill="#15803d" opacity="0.35"/>
+  <circle cx="1020" cy="110" r="110" fill="#16a34a" opacity="0.25"/>
+  <rect x="0" y="520" width="1200" height="110" fill="#0b1f12" opacity="0.35"/>
+  <text x="70" y="120" font-family="Arial, Helvetica, sans-serif" font-size="28" font-weight="700" letter-spacing="3" fill="#bbf7d0">GARDEN CALCULATOR PRO</text>
+  <text x="70" y="260" font-family="Arial, Helvetica, sans-serif" font-size="72" font-weight="800" fill="#ffffff">Terms of Service</text>
+  <text x="70" y="330" font-family="Arial, Helvetica, sans-serif" font-size="30" fill="#d1fae5">Rules for using this site</text>
+  <text x="70" y="580" font-family="Arial, Helvetica, sans-serif" font-size="26" fill="#ffffff">gardencalculatorpro.com</text>
+</svg>

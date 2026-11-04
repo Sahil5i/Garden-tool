@@ -6,7 +6,7 @@
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="theme-color" content="#14532d" />
-    <meta name="description" content="Browse Grow a Garden plants, base values and categories, then calculate their value with mutations and weight."
+    <meta name="description" content="Browse plants, base values &amp; categories — Garden Calculator Pro."
     />
     <meta
       name="keywords"
@@ -53,7 +53,7 @@
         }
       }
     </script>
-    <title>Plants & Values · Garden Calculator Pro</title>
+    <title>Plants &amp; Values · Garden Calculator Pro</title>
     <script type="module" crossorigin src="/assets/app-v2.js"></script>
     <link rel="stylesheet" crossorigin href="/assets/app-v2.css">
   
@@ -62,10 +62,59 @@
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://gardencalculatorpro.com/plants" />
     <meta property="og:site_name" content="Garden Calculator Pro" />
-    <meta property="og:image" content="https://gardencalculatorpro.com/favicon.svg" />
+    <meta property="og:image" content="https://gardencalculatorpro.com/assets/images/featured-plants.svg" />
   </head>
   <body>
     <div id="root"></div>
     <noscript><p>Garden Calculator Pro is a free Grow a Garden calculator for plant values, mutations, pets and trade planning. Please enable JavaScript to use the calculator.</p></noscript>
-  </body>
+  
+
+
+
+
+
+
+<style>
+.page-content{max-width:900px;margin:2rem auto;padding:0 1rem 3rem;font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;color:#12281a;line-height:1.65;box-sizing:border-box}
+.page-content h2{color:#14532d;font-size:clamp(1.45rem,4vw,2rem);line-height:1.25;margin:1.8rem 0 .7rem}
+.page-content h3{color:#14532d;font-size:clamp(1.15rem,3vw,1.4rem);margin:1.4rem 0 .5rem}
+.page-content p{margin:.6rem 0}
+.page-content ul,.page-content ol{margin:.6rem 0 .6rem 1.2rem;padding:0}
+.page-content li{margin:.35rem 0}
+.page-content a{color:#15803d;font-weight:600}
+.featured-image-container{margin:0 0 1.5rem;border:1px solid #d8e6dc;border-radius:16px;overflow:hidden;background:#fff;box-shadow:0 8px 24px rgba(20,83,45,.12)}
+.featured-image-container img{width:100%;height:auto;display:block;aspect-ratio:1200/630;object-fit:cover}
+.featured-image-container figcaption{padding:.6rem 1rem;font-size:.9rem;color:#52665a;background:#f7faf7}
+.blog-card{border:1px solid #d8e6dc;border-radius:16px;overflow:hidden;background:#fff;margin:1.2rem 0}
+.blog-card .blog-body{padding:1rem 1.2rem}
+@media (max-width:640px){.page-content{padding:0 .9rem 2rem}.page-content h2{font-size:1.45rem}}
+</style>
+
+<section class="page-content">
+<figure class="featured-image-container"><img src="/assets/images/featured-plants.svg" alt="Plants and values featured image" width="1200" height="630" loading="lazy"><figcaption>Plants — browse by category and calculate value</figcaption></figure>
+
+<h2>Plants, values, and categories in one place</h2>
+<p>The Plants page is the starting point for most calculations. You can browse plants by category, sort by value from high to low, and open a plant to calculate its value with weight, tier, and mutations. Categories include Seed Shop, Exotic Seed Pack, Limited Rewards, and event categories such as Easter, Night, Bee, and Summer, so you can find event plants without scrolling through everything else.</p>
+<h2>How to use the Plants page</h2>
+<ol>
+<li>Choose a category that matches the plant you have.</li>
+<li>Sort by value if you are comparing plants for a trade.</li>
+<li>Enter the exact weight and tier shown in the game.</li>
+<li>Add mutations one by one and watch the total change.</li>
+<li>Save the result as a line item if you are building a trade list.</li>
+</ol>
+<h2>What affects a plant's value</h2>
+<ul>
+<li><strong>Base value:</strong> the starting value for that plant.</li>
+<li><strong>Weight:</strong> heavier fruit usually means a higher value, but the effect is not always linear.</li>
+<li><strong>Fruit tier:</strong> tier changes the calculation, so do not skip it.</li>
+<li><strong>Mutations:</strong> each mutation applies its own multiplier, and stacks can change the result dramatically.</li>
+<li><strong>Amount and friend boost:</strong> moving more than one plant, or playing with a friend boost, changes the line total.</li>
+</ul>
+<p>Because of those five factors, two plants with the same name can have very different values. That is why the calculator asks for all of them instead of giving you a single fixed price. Use the <a href="/">main calculator</a> for the full calculation, and <a href="/guides">Guides</a> if you want a worked example.</p>
+
+<nav aria-label="More on this site"><p><strong>Explore:</strong> <a href="/">Calculator</a> · <a href="/plants">Plants</a> · <a href="/pets">Pets</a> · <a href="/guides">Guides</a> · <a href="/blog/">Blog</a> · <a href="/faq">FAQ</a> · <a href="/about">About</a> · <a href="/contact">Contact</a></p></nav>
+</section>
+
+</body>
 </html>
