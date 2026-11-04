@@ -1,0 +1,1108 @@
+[
+  {
+    "id": "chilled-0",
+    "name": "Chilled",
+    "multiplier": 2,
+    "description": "Obtained during the snow weather or with sprays",
+    "admin": false
+  },
+  {
+    "id": "frozen-1",
+    "name": "Frozen",
+    "multiplier": 10,
+    "description": "Wet + Chilled creates Frozen",
+    "admin": false
+  },
+  {
+    "id": "shocked-2",
+    "name": "Shocked",
+    "multiplier": 100,
+    "description": "From thunder weather or Jandel event",
+    "admin": false
+  },
+  {
+    "id": "moonlit-3",
+    "name": "Moonlit",
+    "multiplier": 2,
+    "description": "From Night event",
+    "admin": false
+  },
+  {
+    "id": "bloodlit-4",
+    "name": "Bloodlit",
+    "multiplier": 4,
+    "description": "Blood Moon event",
+    "admin": false
+  },
+  {
+    "id": "celestial-5",
+    "name": "Celestial",
+    "multiplier": 120,
+    "description": "Meteor Shower event",
+    "admin": false
+  },
+  {
+    "id": "zombified-6",
+    "name": "Zombified",
+    "multiplier": 25,
+    "description": "Chicken Zombie passive",
+    "admin": false
+  },
+  {
+    "id": "plasma-7",
+    "name": "Plasma",
+    "multiplier": 5,
+    "description": "Admin Laser event",
+    "admin": true
+  },
+  {
+    "id": "burnt-8",
+    "name": "Burnt",
+    "multiplier": 4,
+    "description": "From Cooked Owl pet or spray",
+    "admin": false
+  },
+  {
+    "id": "molten-9",
+    "name": "Molten",
+    "multiplier": 25,
+    "description": "Admin Volcano event",
+    "admin": true
+  },
+  {
+    "id": "meteoric-10",
+    "name": "Meteoric",
+    "multiplier": 125,
+    "description": "Meteor Strike event",
+    "admin": false
+  },
+  {
+    "id": "heavenly-11",
+    "name": "Heavenly",
+    "multiplier": 5,
+    "description": "Jandel admin event",
+    "admin": true
+  },
+  {
+    "id": "sandy-12",
+    "name": "Sandy",
+    "multiplier": 3,
+    "description": "Sandstorm weather",
+    "admin": false
+  },
+  {
+    "id": "clay-13",
+    "name": "Clay",
+    "multiplier": 5,
+    "description": "Mix Wet and Sandy",
+    "admin": false
+  },
+  {
+    "id": "ceramic-14",
+    "name": "Ceramic",
+    "multiplier": 32,
+    "description": "Mix Clay and Burnt/Sundried",
+    "admin": false
+  },
+  {
+    "id": "twisted-15",
+    "name": "Twisted",
+    "multiplier": 5,
+    "description": "Tornado event or Pterodactyl",
+    "admin": false
+  },
+  {
+    "id": "sundried-16",
+    "name": "Sundried",
+    "multiplier": 85,
+    "description": "Heat Wave weather",
+    "admin": false
+  },
+  {
+    "id": "verdant-17",
+    "name": "Verdant",
+    "multiplier": 4,
+    "description": "Scarlet Macaw or spray",
+    "admin": false
+  },
+  {
+    "id": "paradisal-18",
+    "name": "Paradisal",
+    "multiplier": 100,
+    "description": "Sundried + Verdant",
+    "admin": false
+  },
+  {
+    "id": "galactic-19",
+    "name": "Galactic",
+    "multiplier": 120,
+    "description": "Admin event",
+    "admin": true
+  },
+  {
+    "id": "aurora-20",
+    "name": "Aurora",
+    "multiplier": 90,
+    "description": "Aurora Borealis weather",
+    "admin": false
+  },
+  {
+    "id": "drenched-21",
+    "name": "Drenched",
+    "multiplier": 5,
+    "description": "Tropical Rain weather",
+    "admin": false
+  },
+  {
+    "id": "cloudtouched-22",
+    "name": "Cloudtouched",
+    "multiplier": 5,
+    "description": "Hyacinth Macaw or spray",
+    "admin": false
+  },
+  {
+    "id": "pollinated-23",
+    "name": "Pollinated",
+    "multiplier": 3,
+    "description": "Bee swarm/bees",
+    "admin": false
+  },
+  {
+    "id": "honeyglazed-24",
+    "name": "HoneyGlazed",
+    "multiplier": 5,
+    "description": "Honey sprinkler/Bear Bee",
+    "admin": false
+  },
+  {
+    "id": "alienlike-25",
+    "name": "Alienlike",
+    "multiplier": 100,
+    "description": "Alienlike admin event",
+    "admin": true
+  },
+  {
+    "id": "fried-26",
+    "name": "Fried",
+    "multiplier": 8,
+    "description": "Fried Rain admin event",
+    "admin": true
+  },
+  {
+    "id": "cooked-27",
+    "name": "Cooked",
+    "multiplier": 10,
+    "description": "With Cooked Owl",
+    "admin": false
+  },
+  {
+    "id": "amber-28",
+    "name": "Amber",
+    "multiplier": 10,
+    "description": "Raptor or Amber spray",
+    "admin": false
+  },
+  {
+    "id": "oldamber-29",
+    "name": "OldAmber",
+    "multiplier": 20,
+    "description": "Let Amber age",
+    "admin": false
+  },
+  {
+    "id": "ancientamber-30",
+    "name": "AncientAmber",
+    "multiplier": 50,
+    "description": "Let OldAmber age",
+    "admin": false
+  },
+  {
+    "id": "friendbound-31",
+    "name": "Friendbound",
+    "multiplier": 70,
+    "description": "Possessing linked friend pots or having 5 friends in-server",
+    "admin": false
+  },
+  {
+    "id": "tempestous-32",
+    "name": "Tempestous",
+    "multiplier": 12,
+    "description": "Windstruck + Twisted",
+    "admin": false
+  },
+  {
+    "id": "infected-33",
+    "name": "Infected",
+    "multiplier": 75,
+    "description": "Zombie admin mutation",
+    "admin": true
+  },
+  {
+    "id": "tranquil-34",
+    "name": "Tranquil",
+    "multiplier": 20,
+    "description": "Zen hourly event mutation or Tranquil pets",
+    "admin": false
+  },
+  {
+    "id": "corrupt-35",
+    "name": "Corrupt",
+    "multiplier": 20,
+    "description": "Corrupt Tree hourly reset or Corrupt pets",
+    "admin": false
+  },
+  {
+    "id": "corrupt-chakra-36",
+    "name": "(Corrupt)Chakra",
+    "multiplier": 15,
+    "description": "(Corrupt) Kitsune pet ability",
+    "admin": false
+  },
+  {
+    "id": "harmonisedchakra-37",
+    "name": "HarmonisedChakra",
+    "multiplier": 35,
+    "description": "Chakra + CorruptChakra",
+    "admin": false
+  },
+  {
+    "id": "corrupt-foxfirechakra-38",
+    "name": "(Corrupt)FoxfireChakra",
+    "multiplier": 90,
+    "description": "Very rare chance from (Corrupt) Kitsune pet",
+    "admin": false
+  },
+  {
+    "id": "harmonisedfoxfirechakra-39",
+    "name": "HarmonisedFoxfireChakra",
+    "multiplier": 190,
+    "description": "Foxfire + CorruptFoxfireChakra",
+    "admin": false
+  },
+  {
+    "id": "ascendedchakra-40",
+    "name": "AscendedChakra",
+    "multiplier": 230,
+    "description": "HarmonisedFoxfire + HarmonisedChakra",
+    "admin": false
+  },
+  {
+    "id": "radioactive-41",
+    "name": "Radioactive",
+    "multiplier": 55,
+    "description": "Carrot Rocket admin event",
+    "admin": true
+  },
+  {
+    "id": "toxic-42",
+    "name": "Toxic",
+    "multiplier": 15,
+    "description": "Cockatrice pet ability",
+    "admin": false
+  },
+  {
+    "id": "acidic-43",
+    "name": "Acidic",
+    "multiplier": 15,
+    "description": "Acid Rain weather",
+    "admin": false
+  },
+  {
+    "id": "subzero-44",
+    "name": "Subzero",
+    "multiplier": 40,
+    "description": "Yeti admin event or Travis Kelce admin event",
+    "admin": true
+  },
+  {
+    "id": "jackpot-45",
+    "name": "Jackpot",
+    "multiplier": 15,
+    "description": "Travis Kelce admin event",
+    "admin": true
+  },
+  {
+    "id": "blitzshock-46",
+    "name": "Blitzshock",
+    "multiplier": 50,
+    "description": "Travis Kelce admin event",
+    "admin": true
+  },
+  {
+    "id": "touchdown-47",
+    "name": "Touchdown",
+    "multiplier": 105,
+    "description": "Travis Kelce admin event",
+    "admin": true
+  },
+  {
+    "id": "static-48",
+    "name": "Static",
+    "multiplier": 8,
+    "description": "Raiju pet passive",
+    "admin": false
+  },
+  {
+    "id": "sliced-49",
+    "name": "Sliced",
+    "multiplier": 50,
+    "description": "Jandel admin event",
+    "admin": true
+  },
+  {
+    "id": "sauce-50",
+    "name": "Sauce",
+    "multiplier": 3,
+    "description": "Spaghetti Sloth mutation",
+    "admin": false
+  },
+  {
+    "id": "pasta-51",
+    "name": "Pasta",
+    "multiplier": 3,
+    "description": "Spaghetti Sloth mutation",
+    "admin": false
+  },
+  {
+    "id": "meatball-52",
+    "name": "Meatball",
+    "multiplier": 3,
+    "description": "Spaghetti Sloth mutation",
+    "admin": false
+  },
+  {
+    "id": "spaghetti-53",
+    "name": "Spaghetti",
+    "multiplier": 15,
+    "description": "Sauce + Pasta + Meatball",
+    "admin": false
+  },
+  {
+    "id": "aromatic-54",
+    "name": "Aromatic",
+    "multiplier": 3,
+    "description": "Kitchen Storm event",
+    "admin": false
+  },
+  {
+    "id": "oil-55",
+    "name": "Oil",
+    "multiplier": 15,
+    "description": "Flamingo admin event or Oil Rain",
+    "admin": true
+  },
+  {
+    "id": "boil-56",
+    "name": "Boil",
+    "multiplier": 15,
+    "description": "Flamingo admin event or Boil Rain",
+    "admin": true
+  },
+  {
+    "id": "junkshock-57",
+    "name": "Junkshock",
+    "multiplier": 45,
+    "description": "Flamingo admin event",
+    "admin": true
+  },
+  {
+    "id": "bloom-58",
+    "name": "Bloom",
+    "multiplier": 8,
+    "description": "Obtained using spray or pet passive",
+    "admin": false
+  },
+  {
+    "id": "eclipsed-59",
+    "name": "Eclipsed",
+    "multiplier": 20,
+    "description": "From Eclipse weather event",
+    "admin": false
+  },
+  {
+    "id": "lightcycle-60",
+    "name": "Lightcycle",
+    "multiplier": 50,
+    "description": "Blood Owl Stoplight admin event",
+    "admin": true
+  },
+  {
+    "id": "cyclonic-61",
+    "name": "Cyclonic",
+    "multiplier": 50,
+    "description": "Griffin pet mutation",
+    "admin": false
+  },
+  {
+    "id": "warped-62",
+    "name": "Warped",
+    "multiplier": 75,
+    "description": "Admin event mutation",
+    "admin": true
+  },
+  {
+    "id": "rot-63",
+    "name": "Rot",
+    "multiplier": 8,
+    "description": "Mandrake pet mutation",
+    "admin": false
+  },
+  {
+    "id": "gloom-64",
+    "name": "Gloom",
+    "multiplier": 30,
+    "description": "Bloom + Rot mutation",
+    "admin": false
+  },
+  {
+    "id": "brainrot-65",
+    "name": "Brainrot",
+    "multiplier": 100,
+    "description": "Admin event mutation or Lemon Lion pet",
+    "admin": true
+  },
+  {
+    "id": "gnomed-66",
+    "name": "Gnomed",
+    "multiplier": 15,
+    "description": "Gnome pet mutation",
+    "admin": false
+  },
+  {
+    "id": "beanbound-67",
+    "name": "Beanbound",
+    "multiplier": 100,
+    "description": "Hold 4 Beanstalks out during Beanbound event",
+    "admin": false
+  },
+  {
+    "id": "maelstrom-68",
+    "name": "Maelstrom",
+    "multiplier": 100,
+    "description": "Tempestous + Cyclonic",
+    "admin": false
+  },
+  {
+    "id": "cosmic-69",
+    "name": "Cosmic",
+    "multiplier": 240,
+    "description": "Celestial + Aurora",
+    "admin": false
+  },
+  {
+    "id": "stormcharged-70",
+    "name": "Stormcharged",
+    "multiplier": 180,
+    "description": "Shocked + Static + Tempestous",
+    "admin": false
+  },
+  {
+    "id": "glitched-71",
+    "name": "Glitched",
+    "multiplier": 85,
+    "description": "Jhai admin event",
+    "admin": true
+  },
+  {
+    "id": "corrosive-72",
+    "name": "Corrosive",
+    "multiplier": 40,
+    "description": "Toxic + Acidic",
+    "admin": false
+  },
+  {
+    "id": "abyssal-73",
+    "name": "Abyssal",
+    "multiplier": 240,
+    "description": "Void Touched + Eclipsed",
+    "admin": false
+  },
+  {
+    "id": "flaming-74",
+    "name": "Flaming",
+    "multiplier": 25,
+    "description": "Phoenix pet",
+    "admin": false
+  },
+  {
+    "id": "blazing-75",
+    "name": "Blazing",
+    "multiplier": 52,
+    "description": "Flaming + Molten",
+    "admin": false
+  },
+  {
+    "id": "infernal-76",
+    "name": "Infernal",
+    "multiplier": 180,
+    "description": "Blazing + Meteoric",
+    "admin": false
+  },
+  {
+    "id": "enchanted-77",
+    "name": "Enchanted",
+    "multiplier": 50,
+    "description": "Admin mutation",
+    "admin": true
+  },
+  {
+    "id": "cracked-78",
+    "name": "Cracked",
+    "multiplier": 4,
+    "description": "Earthquake event",
+    "admin": false
+  },
+  {
+    "id": "fall-79",
+    "name": "Fall",
+    "multiplier": 4,
+    "description": "Fall event mutation",
+    "admin": false
+  },
+  {
+    "id": "graceful-80",
+    "name": "Graceful",
+    "multiplier": 77,
+    "description": "Swan pet mutation",
+    "admin": false
+  },
+  {
+    "id": "gilded-81",
+    "name": "Gilded",
+    "multiplier": 15,
+    "description": "Midas Rain admin event",
+    "admin": true
+  },
+  {
+    "id": "severed-82",
+    "name": "Severed",
+    "multiplier": 40,
+    "description": "Admin event",
+    "admin": true
+  },
+  {
+    "id": "azure-83",
+    "name": "Azure",
+    "multiplier": 75,
+    "description": "Mizuchi pet mutation",
+    "admin": false
+  },
+  {
+    "id": "astral-84",
+    "name": "Astral",
+    "multiplier": 365,
+    "description": "Cosmic + Galactic",
+    "admin": false
+  },
+  {
+    "id": "sizzled-85",
+    "name": "Sizzled",
+    "multiplier": 18,
+    "description": "Cooked + Fried",
+    "admin": false
+  },
+  {
+    "id": "plagued-86",
+    "name": "Plagued",
+    "multiplier": 102,
+    "description": "Infected + Zombified",
+    "admin": false
+  },
+  {
+    "id": "wiltproof-87",
+    "name": "Wiltproof",
+    "multiplier": 4,
+    "description": "Admin abuse event",
+    "admin": true
+  },
+  {
+    "id": "enlightened-88",
+    "name": "Enlightened",
+    "multiplier": 35,
+    "description": "Tiger pet ability",
+    "admin": false
+  },
+  {
+    "id": "slashbound-89",
+    "name": "Slashbound",
+    "multiplier": 95,
+    "description": "Severed + Sliced",
+    "admin": false
+  },
+  {
+    "id": "biohazard-90",
+    "name": "Biohazard",
+    "multiplier": 157,
+    "description": "Plagued + Radioactive",
+    "admin": false
+  },
+  {
+    "id": "gourmet-91",
+    "name": "Gourmet",
+    "multiplier": 37,
+    "description": "Spaghetti + Aromatic + Sizzled",
+    "admin": false
+  },
+  {
+    "id": "oilboil-92",
+    "name": "Oilboil",
+    "multiplier": 30,
+    "description": "Oil + Boil",
+    "admin": false
+  },
+  {
+    "id": "ghostly-93",
+    "name": "Ghostly",
+    "multiplier": 25,
+    "description": "Great Pumpkin plant or ghostly mutated pets",
+    "admin": false
+  },
+  {
+    "id": "spooky-94",
+    "name": "Spooky",
+    "multiplier": 8,
+    "description": "Ghostbear pet ability",
+    "admin": false
+  },
+  {
+    "id": "vamp-95",
+    "name": "Vamp",
+    "multiplier": 3,
+    "description": "Bat attack event",
+    "admin": false
+  },
+  {
+    "id": "blight-96",
+    "name": "Blight",
+    "multiplier": 8,
+    "description": "Dark Spriggan pet",
+    "admin": false
+  },
+  {
+    "id": "pestilent-97",
+    "name": "Pestilent",
+    "multiplier": 8,
+    "description": "Hex Serpent pet",
+    "admin": false
+  },
+  {
+    "id": "umbral-98",
+    "name": "Umbral",
+    "multiplier": 30,
+    "description": "Blight + Pestilent",
+    "admin": false
+  },
+  {
+    "id": "shadowbound-99",
+    "name": "Shadowbound",
+    "multiplier": 70,
+    "description": "Umbral + Gloom",
+    "admin": false
+  },
+  {
+    "id": "moonbled-100",
+    "name": "Moonbled",
+    "multiplier": 25,
+    "description": "Moon Marrow event",
+    "admin": false
+  },
+  {
+    "id": "contagion-101",
+    "name": "Contagion",
+    "multiplier": 205,
+    "description": "Biohazard + Corrosive",
+    "admin": false
+  },
+  {
+    "id": "blackout-102",
+    "name": "Blackout",
+    "multiplier": 95,
+    "description": "Grim Reaper event",
+    "admin": false
+  },
+  {
+    "id": "wilted-103",
+    "name": "Wilted",
+    "multiplier": 10,
+    "description": "Weeping Branch",
+    "admin": false
+  },
+  {
+    "id": "withered-104",
+    "name": "Withered",
+    "multiplier": 20,
+    "description": "Weeping Branch + time",
+    "admin": false
+  },
+  {
+    "id": "desolate-105",
+    "name": "Desolate",
+    "multiplier": 50,
+    "description": "Weeping Branch + more time",
+    "admin": false
+  },
+  {
+    "id": "necrotic-106",
+    "name": "Necrotic",
+    "multiplier": 8,
+    "description": "Ghostly Dark Spriggan ability",
+    "admin": false
+  },
+  {
+    "id": "batty-107",
+    "name": "Batty",
+    "multiplier": 45,
+    "description": "Fruits bat attack event",
+    "admin": false
+  },
+  {
+    "id": "leeched-108",
+    "name": "Leeched",
+    "multiplier": 70,
+    "description": "Glass Animals event",
+    "admin": false
+  },
+  {
+    "id": "terran-109",
+    "name": "Terran",
+    "multiplier": 75,
+    "description": "Hydra pet ability",
+    "admin": false
+  },
+  {
+    "id": "stampede-110",
+    "name": "Stampede",
+    "multiplier": 50,
+    "description": "Zebra pet ability",
+    "admin": false
+  },
+  {
+    "id": "arid-111",
+    "name": "Arid",
+    "multiplier": 6,
+    "description": "Giraffe pet ability",
+    "admin": false
+  },
+  {
+    "id": "nocturnal-112",
+    "name": "Nocturnal",
+    "multiplier": 4,
+    "description": "Safari Weather event",
+    "admin": false
+  },
+  {
+    "id": "brewed-113",
+    "name": "Brewed",
+    "multiplier": 7,
+    "description": "Giant Cauldron admin event",
+    "admin": true
+  },
+  {
+    "id": "lush-114",
+    "name": "Lush",
+    "multiplier": 3,
+    "description": "Lush Sprinkler",
+    "admin": false
+  },
+  {
+    "id": "monsoon-115",
+    "name": "Monsoon",
+    "multiplier": 50,
+    "description": "Hippo pet ability",
+    "admin": false
+  },
+  {
+    "id": "twilight-116",
+    "name": "Twilight",
+    "multiplier": 4,
+    "description": "Safari Weather event",
+    "admin": false
+  },
+  {
+    "id": "glacial-117",
+    "name": "Glacial",
+    "multiplier": 5,
+    "description": "Safari event mutation",
+    "admin": false
+  },
+  {
+    "id": "wildfast-118",
+    "name": "Wildfast",
+    "multiplier": 5,
+    "description": "Cheetah pet ability",
+    "admin": false
+  },
+  {
+    "id": "geode-119",
+    "name": "Geode",
+    "multiplier": 5,
+    "description": "Geode Turtle pet ability",
+    "admin": false
+  },
+  {
+    "id": "crystalized-120",
+    "name": "Crystalized",
+    "multiplier": 25,
+    "description": "Sapphire Macaw pet ability",
+    "admin": false
+  },
+  {
+    "id": "webbed-121",
+    "name": "Webbed",
+    "multiplier": 8,
+    "description": "Trapdoor Spider pet ability",
+    "admin": false
+  },
+  {
+    "id": "charcoal-122",
+    "name": "Charcoal",
+    "multiplier": 6,
+    "description": "Charcoal sprinkler",
+    "admin": false
+  },
+  {
+    "id": "alienated-123",
+    "name": "Alienated",
+    "multiplier": 25,
+    "description": "Admin weather",
+    "admin": true
+  },
+  {
+    "id": "tempered-124",
+    "name": "Tempered",
+    "multiplier": 6,
+    "description": "Smithing Fever weather",
+    "admin": false
+  },
+  {
+    "id": "moist-125",
+    "name": "Moist",
+    "multiplier": 3,
+    "description": "Gentle Drizzle weather",
+    "admin": false
+  },
+  {
+    "id": "supernatural-126",
+    "name": "Supernatural",
+    "multiplier": 37,
+    "description": "Combining Spooky + Vamp + Ghostly",
+    "admin": false
+  },
+  {
+    "id": "sunscorched-127",
+    "name": "Sunscorched",
+    "multiplier": 32,
+    "description": "Combining Mirage + Arid",
+    "admin": false
+  },
+  {
+    "id": "fractured-128",
+    "name": "Fractured",
+    "multiplier": 92,
+    "description": "Combining Glitched + Plasma",
+    "admin": false
+  },
+  {
+    "id": "riptide-129",
+    "name": "Riptide",
+    "multiplier": 80,
+    "description": "Combining Typhoon + Monsoon",
+    "admin": false
+  },
+  {
+    "id": "mindbender-130",
+    "name": "Mindbender",
+    "multiplier": 175,
+    "description": "Combining Brainrot + Warped",
+    "admin": false
+  },
+  {
+    "id": "coin-131",
+    "name": "Coin",
+    "multiplier": 3,
+    "description": "Sheckling pet ability + Coin Fruit",
+    "admin": false
+  },
+  {
+    "id": "stormbound-132",
+    "name": "Stormbound",
+    "multiplier": 270,
+    "description": "Combining Riptide + Stormcharged",
+    "admin": false
+  },
+  {
+    "id": "snowy-133",
+    "name": "Snowy",
+    "multiplier": 2,
+    "description": "Snowfall weather",
+    "admin": false
+  },
+  {
+    "id": "snowtouched-134",
+    "name": "Snowtouched",
+    "multiplier": 5,
+    "description": "Snowball Fight event",
+    "admin": false
+  },
+  {
+    "id": "ornamented-135",
+    "name": "Ornamented",
+    "multiplier": 10,
+    "description": "Festival Night event",
+    "admin": false
+  },
+  {
+    "id": "glacial-136",
+    "name": "Glacial",
+    "multiplier": 25,
+    "description": "Frost Dragon pet ability",
+    "admin": false
+  },
+  {
+    "id": "arctic-137",
+    "name": "Arctic",
+    "multiplier": 12,
+    "description": "Penguin pet ability",
+    "admin": false
+  },
+  {
+    "id": "whalebound-138",
+    "name": "Whalebound",
+    "multiplier": 50,
+    "description": "Whale pet ability",
+    "admin": false
+  },
+  {
+    "id": "fierywork-139",
+    "name": "Fierywork",
+    "multiplier": 30,
+    "description": "New Year mutation",
+    "admin": false
+  },
+  {
+    "id": "firework-140",
+    "name": "Firework",
+    "multiplier": 26,
+    "description": "New Year mutation",
+    "admin": false
+  },
+  {
+    "id": "eggnog-141",
+    "name": "Eggnog",
+    "multiplier": 6,
+    "description": "Eggnog pet/mutation",
+    "admin": false
+  },
+  {
+    "id": "festive-142",
+    "name": "Festive",
+    "multiplier": 24,
+    "description": "Christmas event/pet abilities",
+    "admin": false
+  },
+  {
+    "id": "clockwork-143",
+    "name": "Clockwork",
+    "multiplier": 15,
+    "description": "Santa's Stocking",
+    "admin": false
+  },
+  {
+    "id": "goldsparkle-144",
+    "name": "Goldsparkle",
+    "multiplier": 500,
+    "description": "Goldfinch mutation",
+    "admin": false
+  },
+  {
+    "id": "extraterrestrial-145",
+    "name": "Extraterrestrial",
+    "multiplier": 130,
+    "description": "Alienated + Alienlike or Santa's Stocking",
+    "admin": false
+  },
+  {
+    "id": "sleepy-146",
+    "name": "Sleepy",
+    "multiplier": 3,
+    "description": "Calico cat pet ability",
+    "admin": false
+  },
+  {
+    "id": "whimsical-147",
+    "name": "Whimsical",
+    "multiplier": 6,
+    "description": "Bear on Bike pet ability",
+    "admin": false
+  },
+  {
+    "id": "mineral-148",
+    "name": "Mineral",
+    "multiplier": 18,
+    "description": "Geode + Charcoal + Tempered",
+    "admin": false
+  },
+  {
+    "id": "opulent-149",
+    "name": "Opulent",
+    "multiplier": 5,
+    "description": "Galah Cockatoo pet ability",
+    "admin": false
+  },
+  {
+    "id": "blizzard-150",
+    "name": "Blizzard",
+    "multiplier": 40,
+    "description": "Yeti or Santa's Stocking",
+    "admin": false
+  },
+  {
+    "id": "gale-151",
+    "name": "Gale",
+    "multiplier": 25,
+    "description": "Wind Wyvern converts Windstruck -> Gale",
+    "admin": false
+  },
+  {
+    "id": "grim-152",
+    "name": "Grim",
+    "multiplier": 170,
+    "description": "Shadowbound + Blackout",
+    "admin": false
+  },
+  {
+    "id": "luck-153",
+    "name": "Luck",
+    "multiplier": 3,
+    "description": "During Rainbow Event weather",
+    "admin": false
+  },
+  {
+    "id": "cute-154",
+    "name": "Cute",
+    "multiplier": 10,
+    "description": "From Red Rose Fox pet",
+    "admin": false
+  },
+  {
+    "id": "heartbound-155",
+    "name": "Heartbound",
+    "multiplier": 50,
+    "description": "From Red Rose Fox pet",
+    "admin": false
+  },
+  {
+    "id": "smoldering-156",
+    "name": "Smoldering",
+    "multiplier": 66,
+    "description": "From Cerberus pet",
+    "admin": false
+  },
+  {
+    "id": "blossoming-157",
+    "name": "Blossoming",
+    "multiplier": 50,
+    "description": "From Elder Candy Blossom plant effect",
+    "admin": false
+  }
+]
