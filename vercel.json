@@ -1,5 +1,108 @@
 {
   "cleanUrls": true,
+  "redirects": [
+    {
+      "source": "/:path*",
+      "has": [
+        {
+          "type": "host",
+          "value": "www.gardencalculatorpro.com"
+        }
+      ],
+      "destination": "https://gardencalculatorpro.com/:path*",
+      "permanent": true
+    },
+    {
+      "source": "/plants",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/plants/:path*",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/pets",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/pets/:path*",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/mutations",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/mutations/:path*",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/trade-values",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/trade-values/:path*",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/blog",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/:path*",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/wiki",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/wiki/:path*",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/help",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/help/:path*",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/faq",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/faq/:path*",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/changelog",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/changelog/:path*",
+      "destination": "/",
+      "permanent": true
+    }
+  ],
   "headers": [
     {
       "source": "/assets/(.*)",
@@ -22,19 +125,6 @@
           "value": "strict-origin-when-cross-origin"
         }
       ]
-    }
-  ],
-  "redirects": [
-    {
-      "source": "/:path*",
-      "has": [
-        {
-          "type": "host",
-          "value": "www.gardencalculatorpro.com"
-        }
-      ],
-      "destination": "https://gardencalculatorpro.com/:path*",
-      "permanent": true
     }
   ]
 }

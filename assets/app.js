@@ -1,168 +1,61 @@
-/* Garden Calculator Pro rebuilt — vanilla JS, same verified formula as the old site.
-   Base: er(plant,weight) piecewise flat / coeff*weight^2, or weight^2 fallback.
-   Variant: none 1, silver 5, gold 20, rainbow 50, diamond 50.
-   Mutations: additive above x1 — bracket = sum(multipliers) - count + 1, only formula-active (Qn) keys count.
-   Friend: 1, 1.1, 1.2, 1.3, 1.4, 1.5. Final = ceil(er * variant * bracket) * amount * friend, rounded.
-   Pets: effective weight = w<=100 ? w : 100+(w-100)/4; hatch = base*(100-bonus)/100, bonus capped 99;
-   XP cumulative = 125*level*(level-1). */
-let DATA = null;
-const $ = (s, el=document) => el.querySelector(s);
-const norm = s => String(s||'').replace(/[^a-zA-Z0-9]/g,'').toLowerCase();
-const displayName = id => id.replace(/([a-z])([A-Z])/g,'$1 $2').replace(/^\w/, c=>c.toUpperCase()).replace(/_/g,' ');
-const fmt = n => '≈$' + Math.round(n).toLocaleString('en-US');
-function plantValue(plantId, weight, tier, mutKeys, amount, friends){
-  const p = DATA.plants[plantId];
-  const base = p ? (weight <= p.threshold ? p.flat : p.coeff * weight * weight) : weight * weight;
-  const variant = tier==='rainbow'||tier==='diamond' ? 50 : tier==='gold' ? 20 : tier==='silver' ? 5 : 1;
-  let sum=0, cnt=0, active=[];
-  (mutKeys||[]).forEach(k=>{ const m=DATA.formulaMutations[k]; if(m!==undefined){sum+=m; cnt++; active.push(k);} });
-  const bracket = cnt ? (sum - cnt + 1) : 1;
-  const core = Math.ceil(base * variant * bracket);
-  const friend = [1,1.1,1.2,1.3,1.4,1.5][Math.max(0,Math.min(5, friends||0))];
-  const total = Math.round(core * (amount||1) * friend);
-  return {base, variant, bracket, core, friend, total, active};
+/* Garden Calculator Pro — real gardening calculators. All formulas are standard, unit-based, and shown on each page. */
+function num(id, defv){ const el=document.getElementById(id); const v=parseFloat(el&&el.value); return isFinite(v)?v:defv; }
+function out(id, html){ const el=document.getElementById(id); if(el) el.innerHTML=html; }
+function fmt(n, d){ return (d===undefined?2:d)===0 ? Math.round(n).toLocaleString('en-US') : n.toLocaleString('en-US',{maximumFractionDigits:d}); }
+// Soil / mulch volume: L ft x W ft x D in -> cu ft = L*W*D/12, cu yd = cu ft/27, bags at bagSize cu ft
+function calcVolume(){
+  const L=num('vol-length',4), W=num('vol-width',8), D=num('vol-depth',12), bag=num('vol-bag',2);
+  const cuft=L*W*D/12, cuyd=cuft/27, bags=Math.ceil(cuft/bag);
+  out('vol-result', `<strong>${fmt(cuft)} cubic feet</strong> · ${fmt(cuyd)} cubic yards · about ${bags} bags of ${bag} cu ft (round up, allow for settling).`);
 }
-function valueToWeight(plantId, target, tier, mutKeys, amount, friends){
-  let best=null;
-  for(let w=0.01; w<=200; w+=0.03){
-    const v = plantValue(plantId, w, tier, mutKeys, amount, friends).total;
-    const d = Math.abs(v-target);
-    if(!best || d<best.d) best={w, v, d};
-  }
-  return best;
+function calcSpacing(){
+  const area=num('sp-area',32), spacing=num('sp-spacing',12), mode=document.getElementById('sp-mode')?document.getElementById('sp-mode').value:'square';
+  const sFt=spacing/12, per = mode==='triangular' ? (area/(sFt*sFt*0.866)) : (area/(sFt*sFt));
+  out('sp-result', `<strong>About ${fmt(Math.floor(per),0)} plants</strong> in ${area} sq ft at ${spacing} in spacing (${mode} layout). Triangular spacing fits about 15% more than square.`);
 }
-function buildPlantCalculator(root, opts={}){
-  const prefix = opts.prefix || 'c';
-  const plants = Object.keys(DATA.baseWeights).sort();
-  const cats = Object.keys(DATA.categories).filter(c=>c!=='All'&&c!=='BaseValue');
-  root.innerHTML = `
-  <div class="grid-two">
-    <div>
-      <div class="field"><label>Category</label><select id="${prefix}-cat"><option value="">All plants</option>${cats.map(c=>`<option>${c}</option>`).join('')}</select></div>
-      <div class="field"><label>Plant</label><select id="${prefix}-plant">${plants.map(p=>`<option value="${p}">${displayName(p)}</option>`).join('')}</select></div>
-      <div class="field"><label>Weight (kg)</label><input id="${prefix}-weight" type="number" step="0.01" min="0.01" value="1"></div>
-      <div class="field"><label>Fruit tier / variant</label><select id="${prefix}-tier"><option value="none">None ×1</option><option value="silver">Silver ×5</option><option value="gold">Gold ×20</option><option value="rainbow">Rainbow ×50</option><option value="diamond">Diamond ×50</option></select></div>
-      <div class="field"><label>Amount</label><input id="${prefix}-amount" type="number" min="1" value="1"></div>
-      <div class="field"><label>Friend boost (0–5 friends, +10% each)</label><input id="${prefix}-friends" type="range" min="0" max="5" step="1" value="0"> <span id="${prefix}-friends-label">0 friends (+0%)</span></div>
-      <div class="field"><label>Target value (Value → Weight mode, optional)</label><input id="${prefix}-target" type="number" placeholder="Leave blank for normal mode"></div>
-    </div>
-    <div>
-      <div class="field"><label>Search mutations</label><input id="${prefix}-mutsearch" type="search" placeholder="e.g. Shocked…"></div>
-      <label style="display:flex;gap:.5rem;align-items:center;min-height:44px;cursor:pointer"><input type="checkbox" id="${prefix}-hideadmin"> Hide admin mutations</label>
-      <div class="mut-list" id="${prefix}-mutlist"></div>
-      <div id="${prefix}-warn"></div>
-    </div>
-  </div>
-  <div class="card" style="margin:1rem 0 0"><div class="big-value" id="${prefix}-result">—</div><div id="${prefix}-breakdown" class="small muted"></div><div style="margin-top:.8rem;display:flex;gap:.5rem;flex-wrap:wrap"><button class="btn" id="${prefix}-save">Add to trade list</button><button class="btn secondary" id="${prefix}-clear">Clear mutations</button></div></div>
-  <div class="card"><h3>Saved trade list</h3><ul id="${prefix}-list"></ul><p><strong>Total: <span id="${prefix}-listtotal">≈$0</span></strong></p><button class="btn secondary" id="${prefix}-clearlist">Clear list</button></div>`;
-  const plantSel=$('#'+prefix+'-plant',root), weightEl=$('#'+prefix+'-weight',root), catSel=$('#'+prefix+'-cat',root);
-  const mutList=$('#'+prefix+'-mutlist',root), mutSearch=$('#'+prefix+'-mutsearch',root);
-  let saved=[]; try{saved=JSON.parse(localStorage.getItem('gcp_trade_list_v2')||'[]')}catch(e){saved=[]}
-  function renderMutations(){
-    const q=norm(mutSearch.value);
-    const wasChecked=new Set([...root.querySelectorAll('.'+prefix+'-mut:checked')].map(i=>i.value));
-    const hideAdmin=$('#'+prefix+'-hideadmin',root) && $('#'+prefix+'-hideadmin',root).checked;
-    const adminSet=new Set((DATA.mutations||[]).filter(m=>m.admin).map(m=>norm(m.name)));
-    const keys=Object.keys(DATA.formulaMutations).sort((a,b)=>DATA.formulaMutations[b]-DATA.formulaMutations[a]);
-    mutList.innerHTML=keys.filter(k=>(!q||k.includes(q)) && !(hideAdmin && adminSet.has(k))).map(k=>`<label><input type="checkbox" value="${k}" class="${prefix}-mut" ${wasChecked.has(k)?'checked':''}> <span><strong>${k}</strong> <span class="mut-x">×${DATA.formulaMutations[k]}</span>${adminSet.has(k)?' <span class="small muted">Admin</span>':''}</span></label>`).join('');
-    mutList.querySelectorAll('input').forEach(i=>i.addEventListener('change',calc));
-  }
-  function refreshPlants(){
-    const cat=catSel.value; const allowed=cat?new Set(DATA.categories[cat]||[]):null;
-    const list=plants.filter(p=>!allowed||allowed.has(p));
-    plantSel.innerHTML=list.map(p=>`<option value="${p}">${displayName(p)}</option>`).join('');
-    if(list.length){ plantSel.value=list[0]; weightEl.value=DATA.baseWeights[list[0]]||1; }
-    calc();
-  }
-  function calc(){
-    const pid=plantSel.value, w=parseFloat(weightEl.value)||0, tier=$('#'+prefix+'-tier',root).value, amt=parseInt($('#'+prefix+'-amount',root).value)||1, fr=parseInt($('#'+prefix+'-friends',root).value)||0;
-    const friendsLabel=$('#'+prefix+'-friends-label',root); if(friendsLabel) friendsLabel.textContent=`${fr} friend${fr===1?'':'s'} (+${fr*10}%)`;
-    const muts=[...root.querySelectorAll('.'+prefix+'-mut:checked')].map(i=>i.value);
-    const target=parseFloat($('#'+prefix+'-target',root).value);
-    const warn=$('#'+prefix+'-warn',root);
-    let warns=[];
-    if(muts.includes('wet')&&muts.includes('chilled')) warns.push('Wet + Chilled can fuse to Frozen — check Frozen instead of counting all three.');
-    if(muts.includes('gold')||muts.includes('rainbow')) warns.push('Note: Gold/Rainbow here are mutation keys, not the fruit tier — tier is selected separately above.');
-    warn.innerHTML=warns.length?`<div class="warn">${warns.join('<br>')}</div>`:'';
-    const r=plantValue(pid,w,tier,muts,amt,fr);
-    $('#'+prefix+'-result',root).textContent=fmt(r.total);
-    $('#'+prefix+'-breakdown',root).innerHTML=`Base (from weight) ${fmt(r.base)} · Variant ×${r.variant} · Mutation bracket ×${r.bracket} (${r.active.length} formula mutations) · Amount ×${amt} · Friend ×${r.friend}<br>Plant: ${displayName(pid)} · Weight ${w} kg · Tier ${tier}`;
-    if(target){
-      const est=valueToWeight(pid,target,tier,muts,amt,fr);
-      $('#'+prefix+'-breakdown',root).innerHTML+=`<br><strong>Value → Weight:</strong> about ${est.w.toFixed(2)} kg gives ${fmt(est.v)} for target ${fmt(target)} (estimate, scanned in 0.03 kg steps).`;
-    }
-    renderList();
-  }
-  function renderList(){
-    const ul=$('#'+prefix+'-list',root); if(!ul) return;
-    ul.innerHTML=saved.length?saved.map((s,i)=>`<li>${s.label} — ${fmt(s.value)}</li>`).join(''):'<li class="muted">No lines yet. Calculate a plant, then Add to trade list.</li>';
-    const tot=saved.reduce((a,s)=>a+s.value,0); const el=$('#'+prefix+'-listtotal',root); if(el) el.textContent=fmt(tot);
-    if(opts.onListTotal) opts.onListTotal(tot);
-  }
-  $('#'+prefix+'-save',root).addEventListener('click',()=>{
-    const pid=plantSel.value, w=parseFloat(weightEl.value)||0, tier=$('#'+prefix+'-tier',root).value, amt=parseInt($('#'+prefix+'-amount',root).value)||1, fr=parseInt($('#'+prefix+'-friends',root).value)||0;
-    const muts=[...root.querySelectorAll('.'+prefix+'-mut:checked')].map(i=>i.value);
-    const r=plantValue(pid,w,tier,muts,amt,fr);
-    saved.push({label:`${displayName(pid)} · ${w}kg · ${tier} · ${muts.length} mutations`, value:r.total});
-    try{localStorage.setItem('gcp_trade_list_v2', JSON.stringify(saved))}catch(e){}
-    renderList();
-  });
-  $('#'+prefix+'-clear',root).addEventListener('click',()=>{root.querySelectorAll('.'+prefix+'-mut:checked').forEach(i=>i.checked=false); calc();});
-  $('#'+prefix+'-clearlist',root).addEventListener('click',()=>{saved=[]; try{localStorage.removeItem('gcp_trade_list_v2')}catch(e){} renderList();});
-  catSel.addEventListener('change',refreshPlants);
-  plantSel.addEventListener('change',()=>{weightEl.value=DATA.baseWeights[plantSel.value]||1; calc();});
-  ['weight','tier','amount','friends','target'].forEach(id=>{const el=$('#'+prefix+'-'+id,root); if(el) el.addEventListener('input',calc);});
-  mutSearch.addEventListener('input',renderMutations);
-  const hideEl=$('#'+prefix+'-hideadmin',root); if(hideEl) hideEl.addEventListener('change',renderMutations);
-  renderMutations(); refreshPlants(); renderList();
-  return {getTotal:()=>saved.reduce((a,s)=>a+s.value,0)};
+function calcSeed(){
+  const area=num('seed-area',32), spacing=num('seed-spacing',12), germ=num('seed-germ',85);
+  const sFt=spacing/12, plants=area/(sFt*sFt), seeds=Math.ceil(plants/(germ/100));
+  out('seed-result', `<strong>About ${fmt(plants,0)} plants, sow about ${fmt(seeds,0)} seeds</strong> at ${germ}% germination. Sow a few extra for losses, then thin to spacing.`);
 }
-function buildPetCalculator(root){
-  root.innerHTML=`
-  <div class="grid-two">
-    <div class="field"><label>Displayed weight (kg)</label><input id="pet-weight" type="number" value="110" step="0.1"></div>
-    <div class="field"><label>Base hatch time (seconds)</label><input id="pet-hatch" type="number" value="300"></div>
-    <div class="field"><label>Hatch speed bonus (%)</label><input id="pet-bonus" type="number" value="25" min="0" max="99"></div>
-    <div class="field"><label>Target level</label><input id="pet-level" type="number" value="10" min="2" max="999"></div>
-    <div class="field"><label>Your XP per second (optional, for time estimate)</label><input id="pet-xps" type="number" value="0.52" step="0.01" min="0"></div>
-  </div>
-  <div class="big-value" id="pet-result"></div><div id="pet-breakdown" class="small muted"></div>`;
-  function calc(){
-    const w=parseFloat($('#pet-weight',root).value)||0, base=parseFloat($('#pet-hatch',root).value)||0, bonus=Math.max(0,Math.min(99,parseFloat($('#pet-bonus',root).value)||0)), lvl=Math.max(2,parseInt($('#pet-level',root).value)||2);
-    const eff = w<=100 ? w : 100+(w-100)/4;
-    const hatch = base*(100-bonus)/100;
-    const xp = 125*lvl*(lvl-1);
-    const xps = parseFloat($('#pet-xps',root).value)||0;
-    let timeTxt = '';
-    if(xps>0){ const secs=xp/xps; const h=Math.floor(secs/3600), m=Math.floor((secs%3600)/60); timeTxt=` · Time at ${xps} XP/s: about ${h}h ${m}m`; }
-    $('#pet-result',root).textContent=`Effective weight ${eff.toFixed(2)} kg`;
-    $('#pet-breakdown',root).innerHTML=`Displayed ${w} kg · Past 100 kg only one-quarter of extra mass counts · Hatch time ${hatch.toFixed(1)}s (bonus ${bonus}%, capped at 99%) · Cumulative XP to level ${lvl}: ${xp.toLocaleString('en-US')}${timeTxt}`;
-  }
-  root.querySelectorAll('input').forEach(i=>i.addEventListener('input',calc)); calc();
+function calcFert(){
+  const need=num('fert-need',1), area=num('fert-area',1000), grade=num('fert-grade',10);
+  const product=(need*area/1000)/(grade/100);
+  out('fert-result', `<strong>${fmt(product)} lb of ${grade}-${grade}-${grade} style product</strong> to supply ${need} lb of nitrogen per 1,000 sq ft over ${area} sq ft. For a real grade, use the first number (N) only — e.g. 10-10-10 means 10% N.`);
 }
-function buildValueList(root){
-  root.innerHTML=`<div class="field"><label>Search plants</label><input id="vl-search" type="search" placeholder="e.g. carrot…"></div><div class="field"><label>Sort</label><select id="vl-sort"><option value="value-desc">Base value high → low</option><option value="value-asc">Base value low → high</option><option value="name">Name A → Z</option></select></div><div class="table-wrap"><table><thead><tr><th>Plant</th><th>Base value</th><th>Base weight (kg)</th><th>Category</th></tr></thead><tbody id="vl-body"></tbody></table></div><p class="small muted">Base value is the flat value from the calculator's piecewise table at base weight. 354 plants from the calculator data; plants without a piecewise entry use weight² only and are shown with their base weight.</p>`;
-  const allPlants=Object.keys(DATA.baseWeights).sort();
-  function catOf(pid){ for(const [c,list] of Object.entries(DATA.categories)){ if(c!=='All'&&c!=='BaseValue'&&list.includes(pid)) return c; } return 'Other'; }
-  function render(){
-    const q=norm($('#vl-search',root).value), sort=$('#vl-sort',root).value;
-    let rows=allPlants.filter(p=>!q||norm(p).includes(q)).map(p=>({p, v: DATA.plants[p]?DATA.plants[p].flat:0, w: DATA.baseWeights[p]||1, c: catOf(p)}));
-    if(sort==='value-desc') rows.sort((a,b)=>b.v-a.v); else if(sort==='value-asc') rows.sort((a,b)=>a.v-b.v); else rows.sort((a,b)=>a.p.localeCompare(b.p));
-    $('#vl-body',root).innerHTML=rows.map(r=>`<tr><td><strong>${displayName(r.p)}</strong></td><td>${r.v?fmt(r.v):'— (weight² only)'}</td><td>${r.w}</td><td>${r.c}</td></tr>`).join('');
-  }
-  $('#vl-search',root).addEventListener('input',render); $('#vl-sort',root).addEventListener('change',render); render();
+function calcWater(){
+  const area=num('water-area',32), inches=num('water-inches',1);
+  const gal=area*inches*0.623, litres=gal*3.785;
+  out('water-result', `<strong>About ${fmt(gal)} gallons (${fmt(litres)} litres)</strong> to apply ${inches} inch of water over ${area} sq ft. 1 inch over 1 sq ft = 0.623 gallons.`);
 }
-document.addEventListener('DOMContentLoaded', async ()=>{
-  try{ const res=await fetch('/assets/data.json'); DATA=await res.json(); }catch(e){ return; }
-  document.querySelectorAll('[data-calculator]').forEach(el=>buildPlantCalculator(el,{prefix: el.dataset.calculator, onListTotal: el.dataset.ontotal?null:null}));
-  document.querySelectorAll('[data-pet]').forEach(el=>buildPetCalculator(el));
-  document.querySelectorAll('[data-valuelist]').forEach(el=>buildValueList(el));
-  // Trade page: two calculators, ratio + verdict
-  const tradeA=$('#trade-a'), tradeB=$('#trade-b');
-  if(tradeA && tradeB){
-    const a=buildPlantCalculator(tradeA,{prefix:'ta'}), b=buildPlantCalculator(tradeB,{prefix:'tb'});
-    const out=$('#trade-verdict');
-    const update=()=>{ const ta=a.getTotal(), tb=b.getTotal(); if(!ta||!tb){out.textContent='Add at least one line to each side to get a verdict.'; return;} const ratio=ta/tb; const verdict=ratio>=1.1?'WIN':ratio>=0.9?'FAIR':'LOSE'; out.innerHTML=`<strong>${verdict}</strong> — Your side ${fmt(ta)} vs their side ${fmt(tb)} · Ratio ${ratio.toFixed(2)} · Difference ${fmt(Math.abs(ta-tb))} · Win ≥1.10, Fair 0.90–1.10, Lose &lt;0.90`; };
-    setInterval(update, 1000);
-  }
+function calcContainer(){
+  const d=num('pot-d',12), h=num('pot-h',12);
+  const r=d/2, cuin=Math.PI*r*r*h, cuft=cuin/1728;
+  out('pot-result', `<strong>About ${fmt(cuft)} cubic feet (${fmt(cuin,0)} cubic inches)</strong> of potting mix for a ${d} in diameter × ${h} in tall pot. Tapered pots hold less — use this as an upper estimate.`);
+}
+function calcCompost(){
+  const greens=num('comp-greens',10), ratio=num('comp-ratio',30);
+  const browns=greens*ratio/15; // target C:N ~30:1, greens ~15:1, browns ~60:1 simplified: browns = greens * (30-15)/(60-30) approx? Use simple rule below instead
+  // Simpler honest rule: for 30:1 target with greens 15:1 and browns 60:1, browns:greens = 1:1 by nitrogen, by volume roughly 2-3 parts browns to 1 part greens. Show that, not a false precise formula.
+  out('comp-result', `<strong>Aim for about 2–3 parts browns (dry leaves, straw) to 1 part greens (fresh clippings, kitchen scraps) by volume</strong> for a pile starting near 30:1 C:N. You entered ${greens} parts greens — add about ${fmt(greens*2.5)} parts browns, keep it moist like a wrung sponge, and turn it regularly.`);
+}
+function calcCalendar(){
+  const frost=document.getElementById('cal-frost')?document.getElementById('cal-frost').value:'';
+  const weeks=num('cal-weeks',6);
+  if(!frost){ out('cal-result','Enter your last frost date above.'); return; }
+  const f=new Date(frost+'T12:00:00Z'), sow=new Date(f), trans=new Date(f);
+  sow.setUTCDate(sow.getUTCDate()-weeks*7);
+  const fmtD=d=>d.toISOString().slice(0,10);
+  out('cal-result', `<strong>Sow indoors around ${fmtD(sow)}, transplant around ${fmtD(trans)}</strong> (last frost). Harden seedlings off for a week before transplanting.`);
+}
+document.addEventListener('DOMContentLoaded', ()=>{
+  const bind=(btn, fn)=>{ const el=document.getElementById(btn); if(el) el.addEventListener('click', fn); };
+  bind('vol-calc', calcVolume); bind('sp-calc', calcSpacing); bind('seed-calc', calcSeed); bind('fert-calc', calcFert); bind('water-calc', calcWater); bind('pot-calc', calcContainer); bind('comp-calc', calcCompost); bind('cal-calc', calcCalendar);
+  ['vol-length','vol-width','vol-depth','vol-bag'].forEach(id=>{const el=document.getElementById(id); if(el) el.addEventListener('input', calcVolume);});
+  if(document.getElementById('vol-result')) calcVolume();
+  if(document.getElementById('sp-result')) calcSpacing();
+  if(document.getElementById('seed-result')) calcSeed();
+  if(document.getElementById('fert-result')) calcFert();
+  if(document.getElementById('water-result')) calcWater();
+  if(document.getElementById('pot-result')) calcContainer();
 });
