@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="shortcut icon" href="/favicon.svg" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#f5f5f7" />
+    <meta name="description" content="How pet weight, hatch speed, XP, and the 100 kg damping model work"
+    />
+    <meta
+      name="keywords"
+      content="grow a garden calculator, grow a garden values, grow a garden pet calculator, grow a garden mutation calculator, gag calculator, grow a garden trade calculator, grow a garden value calculator"
+    />
+    <meta name="robots" content="index, follow, max-image-preview:large" />
+    <meta name="publisher" content="Garden Calculator Pro" />
+    <meta
+      name="google-site-verification"
+      content="w0_pj95puD6W73Z4ccaXFu09lWSuG8NpW1u6UZSWLVY"
+    />
+    <link rel="canonical" href="https://gardencalculatorpro.com/blog/pet-hatch-and-age-guide" />
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "name": "Garden Calculator Pro",
+        "url": "https://gardencalculatorpro.com/",
+        "email": "asbusiness276@gmail.com"
+      }
+    </script>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "name": "Garden Calculator Pro",
+        "url": "https://gardencalculatorpro.com/",
+        "inLanguage": "en"
+      }
+    </script>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "SoftwareApplication",
+        "name": "Garden Calculator Pro",
+        "applicationCategory": "UtilityApplication",
+        "operatingSystem": "Web",
+        "url": "https://gardencalculatorpro.com/",
+        "description": "Grow a Garden calculator for values, mutations, pets, and trade planning.",
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "USD"
+        }
+      }
+    </script>
+    <title>Pet Hatch and Age Guide · Garden Calculator Pro Blog</title>
+    <script type="module" crossorigin src="/assets/app-v2.js"></script>
+    <link rel="stylesheet" crossorigin href="/assets/app-v2.css">
+  
+    <meta property="og:title" content="Guides · Garden Calculator Pro" />
+    <meta property="og:description" content="Step-by-step Grow a Garden guides: how values, mutations, weight and trading work." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://gardencalculatorpro.com/guides" />
+    <meta property="og:site_name" content="Garden Calculator Pro" />
+    <meta property="og:image" content="https://gardencalculatorpro.com/assets/images/featured-blog-pet-hatch-and-age-guide.svg" />
+  <style>.top-featured{max-width:900px;margin:1rem auto 0;padding:0 1rem;box-sizing:border-box;font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif}.top-featured .featured-image-container{margin:0 0 .8rem}.top-featured p{margin:.4rem 0;color:#86868b;font-size:.95rem;line-height:1.5}.top-featured a{color:#16a34a;font-weight:700}</style>
+</head>
+  <body>
+    <div class="top-featured"><figure class="featured-image-container"><img src="/assets/images/featured-blog-pet-hatch-and-age-guide.svg" alt="Pet Hatch and Age Guide featured image" width="1200" height="630" loading="lazy"><figcaption>Pet Hatch and Age Guide — Garden Calculator Pro Blog</figcaption></figure><p><a href="/blog/">← Back to Blog</a> · <a href="/">Calculator</a> · <a href="/guides">Guides</a></p></div>
+<div id="root"></div>
+    <noscript><p>Garden Calculator Pro is a free Grow a Garden calculator for plant values, mutations, pets and trade planning. Please enable JavaScript to use the calculator.</p></noscript>
+  
+
+
+
+
+
+
+
+
+
+
+
+<style>
+.page-content{max-width:900px;margin:2rem auto;padding:0 1rem 3rem;font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;color:#1d1d1f;line-height:1.65;box-sizing:border-box}
+.page-content h2{color:#1d1d1f;font-size:clamp(1.45rem,4vw,2rem);line-height:1.25;margin:1.8rem 0 .7rem}
+.page-content h3{color:#1d1d1f;font-size:clamp(1.15rem,3vw,1.4rem);margin:1.4rem 0 .5rem}
+.page-content p{margin:.6rem 0}
+.page-content ul,.page-content ol{margin:.6rem 0 .6rem 1.2rem;padding:0}
+.page-content li{margin:.35rem 0}
+.page-content a{color:#16a34a;font-weight:600}
+.featured-image-container{margin:0 0 1.5rem;border:1px solid #d2d2d7;border-radius:20px;overflow:hidden;background:#fff;box-shadow:0 4px 20px rgba(0,0,0,.08)}
+.featured-image-container img{width:100%;height:auto;display:block;aspect-ratio:1200/630;object-fit:cover}
+.featured-image-container figcaption{padding:.6rem 1rem;font-size:.9rem;color:#86868b;background:#f5f5f7}
+@media (max-width:640px){.page-content{padding:0 .9rem 2rem}.page-content h2{font-size:1.45rem}}
+</style>
+
+<section class="page-content">
+
+<h2>Pet Hatch and Age Guide — Weight, Hatch Speed, and XP</h2>
+<p>Last updated: 4 November 2026. Pets in Grow a Garden are not just about the number on the screen. Displayed weight, effective weight, hatch time, and XP all work differently, and the calculator on this site models each one separately. This guide explains them in plain language, using the same model as the <a href="/pets">Pets calculator</a>.</p>
+<h2>Effective Weight and the 100 kg Rule</h2>
+<p>Past 100 kg, the tool uses a damped model: only one-quarter of the extra mass over 100 kg counts toward effective weight for scaling. A pet at 120 kg therefore does not gain effective weight at the same rate as a pet at 80 kg. If you ignore damping, you will overvalue very heavy pets. Under 100 kg, the model is simpler — displayed weight and effective weight track much more closely.</p>
+<h2>Hatch Speed</h2>
+<p>Enter the base hatch time in seconds, then add any hatch speed bonus as a percentage. The tool estimates the adjusted hatch time for you. A bonus that looks small on paper can save a lot of real time over many hatches, so compare pets with and without the bonus before you choose which egg to open first.</p>
+<h2>XP Milestones</h2>
+<p>XP is cumulative: reaching a higher level needs all the XP for the levels before it, not just the last one. The Pets calculator shows cumulative XP to a target level, so you can plan how much grinding a pet actually needs. Hatch and XP are estimates — tweak the numbers to match what you see in your run, and the results will follow.</p>
+<h2>A Practical Pet Workflow</h2>
+<ol>
+<li>Enter displayed weight and check effective weight, especially if the pet is over 100 kg.</li>
+<li>Add hatch time and bonus, and note the adjusted time.</li>
+<li>Check XP to your target level.</li>
+<li>Repeat for the other pet you are comparing.</li>
+<li>Choose based on the whole picture — weight, hatch, and XP together — not on weight alone.</li>
+</ol>
+<p>For plant values, return to the <a href="/">calculator</a>, and for the full mutation list, see <a href="/mutations/">Mutations</a>.</p>
+
+<nav aria-label="More on this site"><p><strong>Explore:</strong> <a href="/">Calculator</a> · <a href="/plants">Plants</a> · <a href="/pets">Pets</a> · <a href="/mutations/">Mutations</a> · <a href="/trade-values/">Trade Values (WFL)</a> · <a href="/guides">Guides</a> · <a href="/blog/">Blog</a> · <a href="/faq">FAQ</a> · <a href="/about">About</a> · <a href="/contact">Contact</a></p></nav>
+</section>
+</body>
+</html>
