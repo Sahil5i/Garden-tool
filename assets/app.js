@@ -59,3 +59,25 @@ document.addEventListener('DOMContentLoaded', ()=>{
   if(document.getElementById('water-result')) calcWater();
   if(document.getElementById('pot-result')) calcContainer();
 });
+
+function calcYield(){
+  const plants=num('y-plants',20), per=num('y-per',2);
+  out('y-result', `<strong>About ${fmt(plants*per,0)} units</strong> estimated harvest (${plants} plants × ${per} per plant). This is a planning estimate — variety, weather and care change real yield.`);
+}
+function calcCost(){
+  const vol=num('c-vol',32), price=num('c-price',50);
+  const yards=vol/27;
+  out('c-result', `<strong>About $${fmt(vol/27*price,0)} for soil</strong> (${fmt(yards)} cubic yards × $${price} per yard), before delivery and mulch. Add delivery separately — it is often more than the soil itself for small loads.`);
+}
+function calcRow(){
+  const len=num('r-len',20), spacing=num('r-spacing',12);
+  const plants=Math.floor(len/(spacing/12));
+  out('r-result', `<strong>About ${fmt(plants,0)} plants in one ${len} ft row</strong> at ${spacing} in spacing, plus a path at each end if you need access.`);
+}
+document.addEventListener('DOMContentLoaded', ()=>{
+  const bind=(btn, fn)=>{ const el=document.getElementById(btn); if(el) el.addEventListener('click', fn); };
+  bind('y-calc', calcYield); bind('c-calc', calcCost); bind('r-calc', calcRow);
+  if(document.getElementById('y-result')) calcYield();
+  if(document.getElementById('c-result')) calcCost();
+  if(document.getElementById('r-result')) calcRow();
+});
