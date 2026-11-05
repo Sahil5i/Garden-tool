@@ -250,3 +250,13 @@ document.addEventListener('DOMContentLoaded', ()=>{
     map.forEach((_, id)=>{ const el=document.getElementById(id); if(el) obs.observe(el); });
   }
 });
+
+/* Home nav sits exactly under the header, whatever its height is */
+document.addEventListener('DOMContentLoaded', ()=>{
+  const header=document.querySelector('.site-header');
+  const nav=document.querySelector('.home-nav');
+  if(!header || !nav) return;
+  const setTop=()=>{ nav.style.top = header.offsetHeight + 'px'; };
+  setTop();
+  window.addEventListener('resize', setTop);
+});
