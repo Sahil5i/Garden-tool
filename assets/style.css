@@ -150,3 +150,6 @@ a{overflow-wrap:anywhere}
 .site-nav{-webkit-overflow-scrolling:touch}
 .table-wrap{-webkit-overflow-scrolling:touch}
 @media (max-width:360px){.hero-main h1{font-size:1.75rem}.big-value{font-size:1.25rem}.brand{font-size:.95rem}}
+
+/* --- Safety net: any text element that ever lands directly under <body> still gets page padding --- */
+body > h1, body > h2, body > h3, body > p, body > ul, body > ol{max-width:900px;margin-left:auto;margin-right:auto;padding-left:1rem;padding-right:1rem}
