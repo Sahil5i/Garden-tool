@@ -21,7 +21,7 @@ function calcSeed(){
 function calcFert(){
   const need=num('fert-need',1), area=num('fert-area',1000), grade=num('fert-grade',10);
   const product=(need*area/1000)/(grade/100);
-  out('fert-result', `<strong>${fmt(product)} lb of ${grade}-${grade}-${grade} style product</strong> to supply ${need} lb of nitrogen per 1,000 sq ft over ${area} sq ft. For a real grade, use the first number (N) only — e.g. 10-10-10 means 10% N.`);
+  out('fert-result', `<strong>${fmt(product)} lb of product at ${grade}% nitrogen</strong> to supply ${need} lb of nitrogen per 1,000 sq ft over ${area} sq ft. Use the first NPK number (N) only — e.g. 10-10-10 means 10% N.`);
 }
 function calcWater(){
   const area=num('water-area',32), inches=num('water-inches',1);
@@ -34,9 +34,8 @@ function calcContainer(){
   out('pot-result', `<strong>About ${fmt(cuft)} cubic feet (${fmt(cuin,0)} cubic inches)</strong> of potting mix for a ${d} in diameter × ${h} in tall pot. Tapered pots hold less — use this as an upper estimate.`);
 }
 function calcCompost(){
-  const greens=num('comp-greens',10), ratio=num('comp-ratio',30);
-  const browns=greens*ratio/15; // target C:N ~30:1, greens ~15:1, browns ~60:1 simplified: browns = greens * (30-15)/(60-30) approx? Use simple rule below instead
-  // Simpler honest rule: for 30:1 target with greens 15:1 and browns 60:1, browns:greens = 1:1 by nitrogen, by volume roughly 2-3 parts browns to 1 part greens. Show that, not a false precise formula.
+  const greens=num('comp-greens',10);
+  // Honest rule, not a precise formula: about 2-3 parts browns to 1 part greens by volume for a pile near 30:1 C:N.
   out('comp-result', `<strong>Aim for about 2–3 parts browns (dry leaves, straw) to 1 part greens (fresh clippings, kitchen scraps) by volume</strong> for a pile starting near 30:1 C:N. You entered ${greens} parts greens — add about ${fmt(greens*2.5)} parts browns, keep it moist like a wrung sponge, and turn it regularly.`);
 }
 function calcCalendar(){
@@ -100,7 +99,7 @@ function calcMix(){
 }
 function calcPaver(){
   const area=num('p-area',100), ps=num('p-size',12);
-  const paverSq=(ps/12)*(ps/12), count=Math.ceil(area/paverSq), waste=Math.ceil(count*1.10);
+  const paverSq=(ps/12)*(ps/12), count=Math.ceil(area/paverSq - 1e-9), waste=Math.ceil(count*1.10 - 1e-9);
   out('p-result', `<strong>About ${fmt(count,0)} pavers</strong> for ${fmt(area,0)} sq ft at ${ps} in square pavers, or <strong>${fmt(waste,0)} with 10% waste</strong> for cuts and breakage.`);
 }
 function calcDrip(){
@@ -139,4 +138,21 @@ document.addEventListener('DOMContentLoaded', ()=>{
   if(document.getElementById('rw-result')) calcRain();
   if(document.getElementById('cc-result')) calcConcrete();
   if(document.getElementById('ls-result')) calcLShape();
+});
+
+function calcEdging(){
+  const len=num('e-len',20), wid=num('e-wid',10), piece=num('e-piece',24);
+  const perim=2*(len+wid), pieces=Math.ceil(perim*12/piece - 1e-9), spare=Math.ceil(pieces*1.05 - 1e-9);
+  out('e-result', `<strong>Perimeter about ${fmt(perim)} ft</strong> — about <strong>${fmt(pieces,0)} edging pieces</strong> at ${piece} in each, or <strong>${fmt(spare,0)} with 5% spare</strong> for cuts and breakage.`);
+}
+function calcLawnArea(){
+  const len=num('la-len',40), wid=num('la-wid',25), dia=num('la-dia',0);
+  const rect=len*wid, circ=dia>0 ? Math.PI*(dia/2)*(dia/2) : 0, total=rect+circ;
+  out('la-result', `<strong>Total about ${fmt(total,0)} sq ft (${fmt(total/9)} sq yd)</strong> — rectangle ${fmt(rect,0)} sq ft${dia>0 ? ` + circle ${fmt(circ,0)} sq ft` : ''}. Use this area in the <a href="/calculators/lawn-seed/">lawn seed</a> and <a href="/calculators/fertilizer/">fertilizer</a> calculators.`);
+}
+document.addEventListener('DOMContentLoaded', ()=>{
+  const bind=(btn, fn)=>{ const el=document.getElementById(btn); if(el) el.addEventListener('click', fn); };
+  bind('e-calc', calcEdging); bind('la-calc', calcLawnArea);
+  if(document.getElementById('e-result')) calcEdging();
+  if(document.getElementById('la-result')) calcLawnArea();
 });
