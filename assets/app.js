@@ -181,7 +181,9 @@ function initReset(){
     const btn=document.createElement('button');
     btn.type='button'; btn.className='btn secondary btn-reset'; btn.textContent='Reset';
     btn.addEventListener('click', ()=>{
+      window.__gcpResetting=true;
       inputs.forEach(el=>{ el.value = el.dataset.defaultValue; if(el.tagName==='SELECT') el.dispatchEvent(new Event('change')); });
+      window.__gcpResetting=false;
       calcBtn.click();
     });
     const actions=card.querySelector('.calc-actions') || (()=>{ const d=document.createElement('div'); d.className='calc-actions'; calcBtn.parentNode.insertBefore(d, calcBtn.nextSibling); return d; })();
@@ -200,8 +202,14 @@ function initUnits(){
   const sel=document.getElementById('unit-select');
   if(!sel) return;
   const labels=document.querySelectorAll('.card .field label');
+  const lenIds=['vol-length','vol-width','g-len','g-wid','cc-len','cc-wid'];
+  const depIds=['vol-depth','g-dep','cc-dep'];
   sel.addEventListener('change', ()=>{
     const metric=sel.value==='metric';
+    if(!window.__gcpResetting){
+      lenIds.forEach(id=>{ const el=document.getElementById(id); if(el && isFinite(parseFloat(el.value))) el.value = metric ? Math.round(parseFloat(el.value)/3.28084*100)/100 : Math.round(parseFloat(el.value)*3.28084*100)/100; });
+      depIds.forEach(id=>{ const el=document.getElementById(id); if(el && isFinite(parseFloat(el.value))) el.value = metric ? Math.round(parseFloat(el.value)*2.54*10)/10 : Math.round(parseFloat(el.value)/2.54*10)/10; });
+    }
     labels.forEach(l=>{
       if(!l.dataset.orig) l.dataset.orig=l.textContent;
       const orig=l.dataset.orig;
