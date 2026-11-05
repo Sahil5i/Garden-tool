@@ -245,7 +245,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
   if(links.length && 'IntersectionObserver' in window){
     const map=new Map(links.map(a=>[a.getAttribute('href').slice(1), a]));
     const obs=new IntersectionObserver(entries=>{
-      entries.forEach(e=>{ if(e.isIntersecting){ links.forEach(a=>a.classList.remove('active')); const l=map.get(e.target.id); if(l) l.classList.add('active'); } });
+      entries.forEach(e=>{ if(e.isIntersecting){ links.forEach(a=>a.classList.remove('active')); const l=map.get(e.target.id); if(l){ l.classList.add('active'); l.scrollIntoView({behavior:'smooth', inline:'center', block:'nearest'}); } } });
     }, {rootMargin:'-30% 0px -60% 0px'});
     map.forEach((_, id)=>{ const el=document.getElementById(id); if(el) obs.observe(el); });
   }
@@ -286,7 +286,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
   if('IntersectionObserver' in window){
     const map=new Map(links.map(a=>[a.getAttribute('href').slice(1), a]));
     const obs=new IntersectionObserver(entries=>{
-      entries.forEach(e=>{ if(e.isIntersecting){ links.forEach(a=>a.classList.remove('active')); const l=map.get(e.target.id); if(l) l.classList.add('active'); } });
+      entries.forEach(e=>{ if(e.isIntersecting){ links.forEach(a=>a.classList.remove('active')); const l=map.get(e.target.id); if(l){ l.classList.add('active'); l.scrollIntoView({behavior:'smooth', inline:'center', block:'nearest'}); } } });
     }, {rootMargin:'-30% 0px -60% 0px'});
     map.forEach((_, id)=>{ const el=document.getElementById(id); if(el) obs.observe(el); });
   }
