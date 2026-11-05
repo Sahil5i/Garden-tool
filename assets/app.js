@@ -4,7 +4,7 @@ function out(id, html){ const el=document.getElementById(id); if(el) el.innerHTM
 function fmt(n, d){ return (d===undefined?2:d)===0 ? Math.round(n).toLocaleString('en-US') : n.toLocaleString('en-US',{maximumFractionDigits:d}); }
 // Soil / mulch volume: L ft x W ft x D in -> cu ft = L*W*D/12, cu yd = cu ft/27, bags at bagSize cu ft
 function calcVolume(){
-  const L=num('vol-length',4), W=num('vol-width',8), D=num('vol-depth',12), bag=num('vol-bag',2);
+  const L=convertLen(num('vol-length',4)), W=convertLen(num('vol-width',8)), D=convertDepth(num('vol-depth',12)), bag=num('vol-bag',2);
   const cuft=L*W*D/12, cuyd=cuft/27, bags=Math.ceil(cuft/bag);
   out('vol-result', `<strong>${fmt(cuft)} cubic feet</strong> · ${fmt(cuyd)} cubic yards · about ${bags} bags of ${bag} cu ft (round up, allow for settling).`);
 }
@@ -87,9 +87,9 @@ function calcLawn(){
   out('l-result', `<strong>About ${fmt(lb,1)} lb of seed</strong> for ${fmt(area,0)} sq ft at ${rate} lb per 1,000 sq ft. For overseeding an existing lawn, use a lower rate (often half the new-lawn rate) — check the seed bag.`);
 }
 function calcGravel(){
-  const len=num('g-len',10), wid=num('g-wid',4), dep=num('g-dep',3);
+  const len=convertLen(num('g-len',10)), wid=convertLen(num('g-wid',4)), dep=convertDepth(num('g-dep',3));
   const cf=len*wid*dep/12, cy=cf/27;
-  out('g-result', `<strong>About ${fmt(cf)} cubic feet (${fmt(cy)} cubic yards)</strong> for a ${len} × ${wid} ft area at ${dep} in deep. Ask your supplier for the weight in tons, as it varies by stone type — volume is the reliable number to order by.`);
+  out('g-result', `<strong>About ${fmt(cf)} cubic feet (${fmt(cy)} cubic yards)</strong> for a ${fmt(len,1)} × ${fmt(wid,1)} ft area at ${fmt(dep,1)} in deep. Ask your supplier for the weight in tons, as it varies by stone type — volume is the reliable number to order by.`);
 }
 function calcMix(){
   const vol=num('m-vol',32), top=num('m-top',60), comp=num('m-comp',30), aer=num('m-aer',10);
@@ -123,14 +123,14 @@ function calcRain(){
   out('rw-result', `<strong>About ${fmt(gal)} gallons</strong> from a ${fmt(roof,0)} sq ft roof in ${rain} inch of rain. A standard 55-gallon barrel fills many times over in a good storm — use multiple barrels or a larger tank if you want to store it.`);
 }
 function calcConcrete(){
-  const len=num('cc-len',10), wid=num('cc-wid',4), dep=num('cc-dep',4);
+  const len=convertLen(num('cc-len',10)), wid=convertLen(num('cc-wid',4)), dep=convertDepth(num('cc-dep',4));
   const cf=len*wid*dep/12, cy=cf/27, bags=Math.ceil(cf/0.6);
   out('cc-result', `<strong>About ${fmt(cf)} cubic feet (${fmt(cy)} cubic yards)</strong>, or about <strong>${fmt(bags,0)} × 80 lb bags</strong> at roughly 0.6 cu ft per bag — check your bag label, as yields vary by mix.`);
 }
 function calcLShape(){
   const l1=num('ls-l1',8), w1=num('ls-w1',4), l2=num('ls-l2',4), w2=num('ls-w2',4), dep=num('ls-dep',12);
   const cf=(l1*w1+l2*w2)*dep/12, cy=cf/27;
-  out('ls-result', `<strong>About ${fmt(cf)} cubic feet (${fmt(cy)} cubic yards)</strong> for an L-shaped bed: ${l1}×${w1} ft main section plus ${l2}×${w2} ft wing, at ${dep} in deep. Measure the wing as the part that sticks out beyond the main rectangle, not the full length including overlap.`);
+  out('ls-result', `<strong>About ${fmt(cf)} cubic feet (${fmt(cy)} cubic yards)</strong> for an L-shaped bed: ${fmt(l1,0)}×${fmt(w1,0)} ft main section plus ${fmt(l2,0)}×${fmt(w2,0)} ft wing, at ${fmt(dep,0)} in deep. Measure the wing as the part that sticks out beyond the main rectangle, not the full length including overlap.`);
 }
 document.addEventListener('DOMContentLoaded', ()=>{
   const bind=(btn, fn)=>{ const el=document.getElementById(btn); if(el) el.addEventListener('click', fn); };
@@ -155,4 +155,62 @@ document.addEventListener('DOMContentLoaded', ()=>{
   bind('e-calc', calcEdging); bind('la-calc', calcLawnArea);
   if(document.getElementById('e-result')) calcEdging();
   if(document.getElementById('la-result')) calcLawnArea();
+});
+
+/* Homepage calculator search: filters the full calculator list live */
+function initSearch(){
+  const input=document.getElementById('calc-search');
+  const list=document.getElementById('calc-list');
+  if(!input || !list) return;
+  const items=list.querySelectorAll('li');
+  const count=document.getElementById('calc-count');
+  input.addEventListener('input', ()=>{
+    const q=input.value.trim().toLowerCase(); let shown=0;
+    items.forEach(li=>{ const hit=!q || li.textContent.toLowerCase().includes(q); li.style.display=hit?'':'none'; if(hit) shown++; });
+    if(count) count.textContent = q ? shown + ' of 22 calculators' : '22 calculators';
+  });
+}
+/* Reset buttons: restore each input to its original value, then recalculate */
+function initReset(){
+  document.querySelectorAll('.card').forEach(card=>{
+    const calcBtn=card.querySelector('.btn[id$="-calc"]');
+    if(!calcBtn || card.querySelector('.btn-reset')) return;
+    const inputs=card.querySelectorAll('input, select');
+    if(!inputs.length) return;
+    inputs.forEach(el=>{ el.dataset.defaultValue = el.value; });
+    const btn=document.createElement('button');
+    btn.type='button'; btn.className='btn secondary btn-reset'; btn.textContent='Reset';
+    btn.addEventListener('click', ()=>{
+      inputs.forEach(el=>{ el.value = el.dataset.defaultValue; if(el.tagName==='SELECT') el.dispatchEvent(new Event('change')); });
+      calcBtn.click();
+    });
+    const actions=card.querySelector('.calc-actions') || (()=>{ const d=document.createElement('div'); d.className='calc-actions'; calcBtn.parentNode.insertBefore(d, calcBtn.nextSibling); return d; })();
+    if(!card.querySelector('.calc-actions')){ actions.appendChild(calcBtn); }
+    actions.appendChild(btn);
+  });
+}
+/* Unit selector for volume calculators (soil, mulch, gravel, concrete): metric inputs are converted to ft/in before the formula */
+function unitFactor(){
+  const sel=document.getElementById('unit-select');
+  return sel && sel.value==='metric' ? 'metric' : 'imperial';
+}
+function convertLen(v){ return unitFactor()==='metric' ? v*3.28084 : v; }
+function convertDepth(v){ return unitFactor()==='metric' ? v/2.54 : v; }
+function initUnits(){
+  const sel=document.getElementById('unit-select');
+  if(!sel) return;
+  const labels=document.querySelectorAll('.card .field label');
+  sel.addEventListener('change', ()=>{
+    const metric=sel.value==='metric';
+    labels.forEach(l=>{
+      if(!l.dataset.orig) l.dataset.orig=l.textContent;
+      const orig=l.dataset.orig;
+      if(metric){ l.textContent=orig.replace('(feet)','(metres)').replace('(inches)','(cm)').replace('(feet)','(metres)'); }
+      else { l.textContent=orig; }
+    });
+    const btn=document.querySelector('.card .btn[id$="-calc"]'); if(btn) btn.click();
+  });
+}
+document.addEventListener('DOMContentLoaded', ()=>{ initSearch(); initReset(); initUnits();
+  document.querySelectorAll('.big-value').forEach(el=>el.setAttribute('aria-live','polite'));
 });
