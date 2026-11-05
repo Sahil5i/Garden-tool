@@ -235,3 +235,18 @@ document.addEventListener('DOMContentLoaded', ()=>{
     if(href===path || (href!=='/' && path.startsWith(href))) a.classList.add('active');
   });
 });
+
+/* Sticky homepage: header shadow on scroll + section scroll-spy */
+document.addEventListener('DOMContentLoaded', ()=>{
+  const header=document.querySelector('.site-header');
+  const onScroll=()=>{ if(header) header.classList.toggle('scrolled', window.scrollY>8); };
+  window.addEventListener('scroll', onScroll, {passive:true}); onScroll();
+  const links=[...document.querySelectorAll('.home-nav a')];
+  if(links.length && 'IntersectionObserver' in window){
+    const map=new Map(links.map(a=>[a.getAttribute('href').slice(1), a]));
+    const obs=new IntersectionObserver(entries=>{
+      entries.forEach(e=>{ if(e.isIntersecting){ links.forEach(a=>a.classList.remove('active')); const l=map.get(e.target.id); if(l) l.classList.add('active'); } });
+    }, {rootMargin:'-30% 0px -60% 0px'});
+    map.forEach((_, id)=>{ const el=document.getElementById(id); if(el) obs.observe(el); });
+  }
+});
