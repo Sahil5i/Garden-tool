@@ -53,16 +53,6 @@
       "permanent": true
     },
     {
-      "source": "/blog",
-      "destination": "/",
-      "permanent": true
-    },
-    {
-      "source": "/blog/:path*",
-      "destination": "/",
-      "permanent": true
-    },
-    {
       "source": "/wiki",
       "destination": "/",
       "permanent": true
@@ -119,11 +109,6 @@
     },
     {
       "source": "/trade-values/",
-      "destination": "/",
-      "permanent": true
-    },
-    {
-      "source": "/blog/",
       "destination": "/",
       "permanent": true
     },
