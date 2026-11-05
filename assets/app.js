@@ -222,3 +222,16 @@ function initUnits(){
 document.addEventListener('DOMContentLoaded', ()=>{ initSearch(); initReset(); initUnits();
   document.querySelectorAll('.big-value').forEach(el=>el.setAttribute('aria-live','polite'));
 });
+
+/* Design: skip link + active nav state */
+document.addEventListener('DOMContentLoaded', ()=>{
+  const skip=document.createElement('a'); skip.href='#main'; skip.className='skip-link'; skip.textContent='Skip to main content';
+  document.body.prepend(skip);
+  const main=document.querySelector('main') || document.querySelector('.page-content') || document.querySelector('section');
+  if(main && !main.id) main.id='main';
+  const path=location.pathname.replace(/\/$/,'') || '/';
+  document.querySelectorAll('.site-nav a').forEach(a=>{
+    const href=new URL(a.href, location.origin).pathname.replace(/\/$/,'') || '/';
+    if(href===path || (href!=='/' && path.startsWith(href))) a.classList.add('active');
+  });
+});
