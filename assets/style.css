@@ -63,7 +63,7 @@ table{width:100%;border-collapse:collapse;font-size:.92rem;min-width:560px}th,td
 .calc-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin:1rem 0}
 .calc-card{background:var(--surface);border:1px solid var(--border-soft);border-radius:20px;box-shadow:var(--shadow);overflow:hidden;display:flex;flex-direction:column;transition:transform .15s ease,box-shadow .15s ease}
 .calc-card:hover{transform:translateY(-3px);box-shadow:0 8px 28px rgba(0,0,0,.12)}
-.calc-card img{width:100%;height:auto;display:block;aspect-ratio:1200/630;object-fit:cover}
+.calc-card img{width:100%;height:auto;display:block;aspect-ratio:16/9;object-fit:cover}
 .calc-card .calc-body{padding:1rem 1.1rem;display:flex;flex-direction:column;gap:.5rem;flex:1}
 .calc-card h3{margin:0}
 .calc-card p{margin:0;color:var(--muted);font-size:.95rem;flex:1}
@@ -78,7 +78,7 @@ table{width:100%;border-collapse:collapse;font-size:.92rem;min-width:560px}th,td
 .step .step-num{font-size:1.8rem;font-weight:800;color:var(--accent)}
 .guide-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1rem;margin:1rem 0}
 .guide-card{background:var(--surface);border:1px solid var(--border-soft);border-radius:20px;overflow:hidden;box-shadow:var(--shadow);display:flex;flex-direction:column}
-.guide-card img{width:100%;height:auto;display:block;aspect-ratio:1200/630;object-fit:cover}
+.guide-card img{width:100%;height:auto;display:block;aspect-ratio:16/9;object-fit:cover}
 .guide-card .guide-body{padding:1rem 1.1rem;display:flex;flex-direction:column;gap:.5rem;flex:1}
 .guide-card h3{margin:0}
 .guide-card p{margin:0;color:var(--muted);font-size:.95rem;flex:1}
@@ -141,3 +141,12 @@ tbody tr:nth-child(even){background:var(--bg)}
 :focus-visible{outline:3px solid var(--accent);outline-offset:2px;border-radius:6px}
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important;animation:none!important}}
 @media (max-width:520px){.hero-main{padding-top:1.6rem}.trust-row li{font-size:.8rem}.search-bar{max-width:100%}}
+
+/* --- Overflow-proofing: no text may escape its container --- */
+p,h1,h2,h3,h4,li,td,th,figcaption,.big-value,.breadcrumbs,.card,.page-content{overflow-wrap:break-word}
+a{overflow-wrap:anywhere}
+.search-bar input,.field input,.field select,.field textarea{min-width:0}
+.big-value{overflow-wrap:break-word}
+.site-nav{-webkit-overflow-scrolling:touch}
+.table-wrap{-webkit-overflow-scrolling:touch}
+@media (max-width:360px){.hero-main h1{font-size:1.75rem}.big-value{font-size:1.25rem}.brand{font-size:.95rem}}
