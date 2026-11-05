@@ -181,10 +181,10 @@ body > h1, body > h2, body > h3, body > p, body > ul, body > ol{max-width:900px;
 @media (max-width:520px){.why-grid{grid-template-columns:1fr}}
 
 /* Hero calculator list: fills the hero width as cards, not a narrow bullet column */
-#calc-list{display:grid;grid-template-columns:repeat(3,1fr);gap:.55rem;list-style:none;padding:0;margin:.9rem 0 1.1rem}
-#calc-list li{margin:0}
-#calc-list a{display:flex;align-items:center;gap:.4rem;background:var(--surface);border:1px solid var(--border-soft);border-radius:12px;padding:.65rem .85rem;text-decoration:none;font-weight:600;color:var(--text);box-shadow:var(--shadow-sm);min-height:44px}
-#calc-list a::after{content:"\2192";margin-left:auto;color:var(--green-ink);font-weight:700}
-#calc-list a:hover{border-color:var(--accent);transform:translateY(-1px)}
-@media (max-width:820px){#calc-list{grid-template-columns:1fr 1fr}}
-@media (max-width:520px){#calc-list{grid-template-columns:1fr}}
+#calc-list,.link-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:.55rem;list-style:none;padding:0;margin:.9rem 0 1.1rem}
+#calc-list li,.link-grid li{margin:0}
+#calc-list a,.link-grid a{display:flex;align-items:center;gap:.4rem;background:var(--surface);border:1px solid var(--border-soft);border-radius:12px;padding:.65rem .85rem;text-decoration:none;font-weight:600;color:var(--text);box-shadow:var(--shadow-sm);min-height:44px}
+#calc-list a::after,.link-grid a::after{content:"\2192";margin-left:auto;color:var(--green-ink);font-weight:700}
+#calc-list a:hover,.link-grid a:hover{border-color:var(--accent);transform:translateY(-1px)}
+@media (max-width:820px){#calc-list,.link-grid{grid-template-columns:1fr 1fr}}
+@media (max-width:520px){#calc-list,.link-grid{grid-template-columns:1fr}}

@@ -260,3 +260,34 @@ document.addEventListener('DOMContentLoaded', ()=>{
   setTop();
   window.addEventListener('resize', setTop);
 });
+
+/* Auto sticky "On this page" nav: every content page gets the homepage treatment.
+   Builds from the page's own h2 headings, so calculator/guide/blog pages all get
+   the same sticky section bar without per-page HTML edits. */
+document.addEventListener('DOMContentLoaded', ()=>{
+  if(document.querySelector('.home-nav')) return; /* homepage already has one */
+  const heads=[...document.querySelectorAll('.page-content h2, .card h2')].filter(h=>h.textContent.trim().length>1);
+  if(heads.length < 3) return;
+  const slug=s=>s.toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-+|-+$/g,'') || 'section';
+  const nav=document.createElement('nav');
+  nav.className='home-nav'; nav.setAttribute('aria-label','On this page');
+  const inner=document.createElement('div'); inner.className='wrap';
+  heads.forEach(h=>{
+    if(!h.id) h.id=slug(h.textContent.trim());
+    const a=document.createElement('a'); a.href='#'+h.id; a.textContent=h.textContent.trim();
+    inner.appendChild(a);
+  });
+  nav.appendChild(inner);
+  const header=document.querySelector('.site-header');
+  header.after(nav);
+  if(header) nav.style.top=header.offsetHeight+'px';
+  /* scroll-spy for the auto nav */
+  const links=[...inner.querySelectorAll('a')];
+  if('IntersectionObserver' in window){
+    const map=new Map(links.map(a=>[a.getAttribute('href').slice(1), a]));
+    const obs=new IntersectionObserver(entries=>{
+      entries.forEach(e=>{ if(e.isIntersecting){ links.forEach(a=>a.classList.remove('active')); const l=map.get(e.target.id); if(l) l.classList.add('active'); } });
+    }, {rootMargin:'-30% 0px -60% 0px'});
+    map.forEach((_, id)=>{ const el=document.getElementById(id); if(el) obs.observe(el); });
+  }
+});
